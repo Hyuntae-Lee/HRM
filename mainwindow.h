@@ -19,6 +19,10 @@ public:
 private slots:
     void on_pushButton_connectDB_clicked();
 
+    void on_pushButton_refresh_clicked();
+
+    void on_pushButton_newWorker_clicked();
+
 private:
     Ui::MainWindow *ui;
     DBHdlr* m_dbHdlr;

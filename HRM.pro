@@ -14,9 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dbhdlr.cpp
+    dbhdlr.cpp \
+    worker.cpp \
+    dialognewworker.cpp
 
 HEADERS  += mainwindow.h \
-    dbhdlr.h
+    dbhdlr.h \
+    worker.h \
+    dialognewworker.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialognewworker.ui
