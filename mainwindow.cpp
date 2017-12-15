@@ -4,6 +4,7 @@
 #include "dialognewworker.h"
 #include <QDir>
 #include <QMessageBox>
+#include <QStringListModel>
 
 #define DB_FILE_PATH "/data/main.db"
 
@@ -11,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    m_dbHdlr = new DBHdlr();
+    m_dbHdlr = new DBHdlr;
+    m_listModel_hr = new QStringListModel;
 
     ui->setupUi(this);
 }
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete m_dbHdlr;
+    delete m_listModel_hr;
     delete ui;
 }
 
@@ -27,7 +30,7 @@ void MainWindow::on_pushButton_connectDB_clicked()
     m_dbHdlr->connectToDB(QDir::currentPath() + DB_FILE_PATH);
 }
 
-void MainWindow::on_pushButton_refresh_clicked()
+void MainWindow::on_pushButton_refreshHR_clicked()
 {
     // 내용 불러옴
     QList<Worker> workerList;
@@ -37,10 +40,17 @@ void MainWindow::on_pushButton_refresh_clicked()
     }
 
     // list 를 채움
-    // TODO
+    // - 아이템 구성
+    QStringList itemList;
+    foreach(Worker worker, workerList) {
+        itemList.append(worker.name());
+    }
+    // - ui 적용
+    m_listModel_hr->setStringList(itemList);
+    ui->listView_hr->setModel(m_listModel_hr);
 }
 
-void MainWindow::on_pushButton_newWorker_clicked()
+void MainWindow::on_pushButton_newHR_clicked()
 {
     DialogNewWorker dlgNewWorker;
 

@@ -8,6 +8,7 @@ class MainWindow;
 }
 
 class DBHdlr;
+class QStringListModel;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,14 +19,13 @@ public:
 
 private slots:
     void on_pushButton_connectDB_clicked();
-
-    void on_pushButton_refresh_clicked();
-
-    void on_pushButton_newWorker_clicked();
+    void on_pushButton_refreshHR_clicked();
+    void on_pushButton_newHR_clicked();
 
 private:
     Ui::MainWindow *ui;
     DBHdlr* m_dbHdlr;
+    QStringListModel* m_listModel_hr;
 };
 
 #endif // MAINWINDOW_H
