@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class DBHdlr;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -15,8 +16,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_connectDB_clicked();
+
 private:
     Ui::MainWindow *ui;
+    DBHdlr* m_dbHdlr;
 };
 
 #endif // MAINWINDOW_H
