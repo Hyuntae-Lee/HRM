@@ -54,3 +54,46 @@ void Worker::setAge(int value)
 {
     m_age = value;
 }
+
+QString Worker::address()
+{
+    return m_address;
+}
+
+void Worker::setAddress(QString value)
+{
+    m_address = value;
+}
+
+QString Worker::phoneNum()
+{
+    return m_phoneNum;
+}
+
+void Worker::setPhoneNum(QString value)
+{
+    m_phoneNum = value;
+}
+
+QString Worker::bankAccount()
+{
+    return m_bankAccount;
+}
+
+void Worker::setBankAccount(QString value)
+{
+    m_bankAccount = value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

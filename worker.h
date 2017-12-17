@@ -20,6 +20,12 @@ public:
     void setPicturePath(QString value);
     int age();
     void setAge(int value);
+    QString address();
+    void setAddress(QString value);
+    QString phoneNum();
+    void setPhoneNum(QString value);
+    QString bankAccount();
+    void setBankAccount(QString value);
 
 private:
     QString m_name;
@@ -27,6 +33,9 @@ private:
     QList<QString> m_jobList;
     QString m_picturePath;
     int m_age;
+    QString m_address;
+    QString m_phoneNum;
+    QString m_bankAccount;
 };
 
 #endif // WORKER_H
