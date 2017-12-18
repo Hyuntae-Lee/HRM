@@ -13,15 +13,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     m_dbHdlr = new DBHdlr;
-    m_listModel_hr = new QStringListModel;
+    m_model_worker = new QStringListModel;
 
     ui->setupUi(this);
+
+    _init_table_worker();
 }
 
 MainWindow::~MainWindow()
 {
     delete m_dbHdlr;
-    delete m_listModel_hr;
+    delete m_model_worker;
     delete ui;
 }
 
@@ -36,22 +38,8 @@ void MainWindow::on_pushButton_connectDB_clicked()
 
 void MainWindow::on_pushButton_refreshHR_clicked()
 {
-    // 내용 불러옴
-    QList<Worker> workerList;
-    if (!m_dbHdlr->getWorkerList(workerList)) {
-        QMessageBox::critical(this, tr("Error"), tr("Cannot load data from!!"), tr("Ok"));
-        return;
-    }
-
-    // list 를 채움
-    // - 아이템 구성
-    QStringList itemList;
-    foreach(Worker worker, workerList) {
-        itemList.append(worker.name());
-    }
-    // - ui 적용
-    m_listModel_hr->setStringList(itemList);
-    ui->listView_hr->setModel(m_listModel_hr);
+    _load_worker_list(m_workerList);
+    _update_table_worker(m_workerList);
 }
 
 void MainWindow::on_pushButton_newHR_clicked()
@@ -72,4 +60,63 @@ void MainWindow::on_pushButton_newHR_clicked()
     }
 
     QMessageBox::information(this, tr("Confirm"), tr("A new worker is added."), tr("Ok"));
+}
+
+void MainWindow::_init_table_worker()
+{
+    ui->listView_worker->setModel(m_model_worker);
+}
+
+void MainWindow::_update_table_worker(QList<Worker> listValue)
+{
+    QStringList strList;
+    foreach (Worker worker, listValue) {
+        QString lableStr = QString("%1 (%2)").arg(worker.name()).arg(worker.idNum());
+        strList.append(lableStr);
+    }
+
+    m_model_worker->setStringList(strList);
+}
+
+void MainWindow::_load_worker_list(QList<Worker>& listValue)
+{
+    listValue.clear();
+    if (!m_dbHdlr->getWorkerList(listValue)) {
+        QMessageBox::critical(this, tr("Error"), tr("Cannot load data from!!"), tr("Ok"));
+        return;
+    }
+}
+
+bool MainWindow::_find_worker_idx(int* out_idx, int id)
+{
+    if (!out_idx) {
+        return false;
+    }
+
+    for(int i = 0; i < m_workerList.count(); i++) {
+        Worker worker = m_workerList.at(i);
+        if (worker.idNum() == id) {
+            *out_idx = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void MainWindow::on_listView_worker_clicked(const QModelIndex &index)
+{
+    Worker worker = m_workerList.at(index.row());
+
+    QString name = worker.name();
+    QString idStr = QString("%1").arg(worker.idNum());
+    QString phoneNum = worker.phoneNum();
+    QString address = worker.address();
+    QString majorStr = worker.majorStr();
+
+    ui->label_workerName->setText(name);
+    ui->label_workerId->setText(idStr);
+    ui->label_workerPhoneNum->setText(phoneNum);
+    ui->label_workerAddr->setText(address);
+    ui->label_workerMajor->setText(majorStr);
 }

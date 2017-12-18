@@ -1,5 +1,6 @@
 #include "dialognewworker.h"
 #include "ui_dialognewworker.h"
+#include "worker.h"
 
 DialogNewWorker::DialogNewWorker(QWidget *parent) :
     QDialog(parent),

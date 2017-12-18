@@ -2,12 +2,12 @@
 #define DIALOGNEWWORKER_H
 
 #include <QDialog>
-#include "worker.h"
 
 namespace Ui {
 class DialogNewWorker;
 }
 
+class Worker;
 class DialogNewWorker : public QDialog
 {
     Q_OBJECT

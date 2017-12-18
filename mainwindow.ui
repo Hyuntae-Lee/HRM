@@ -73,12 +73,18 @@
            </layout>
           </item>
           <item>
-           <widget class="QListView" name="listView_hr">
+           <widget class="QListView" name="listView_worker">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>0</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -103,8 +109,83 @@
                </size>
               </property>
               <property name="title">
-               <string>GroupBox</string>
+               <string/>
               </property>
+              <widget class="QGraphicsView" name="graphicsView">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>10</y>
+                 <width>141</width>
+                 <height>151</height>
+                </rect>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_workerName">
+               <property name="geometry">
+                <rect>
+                 <x>180</x>
+                 <y>10</y>
+                 <width>400</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_workerId">
+               <property name="geometry">
+                <rect>
+                 <x>180</x>
+                 <y>70</y>
+                 <width>400</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_workerPhoneNum">
+               <property name="geometry">
+                <rect>
+                 <x>180</x>
+                 <y>100</y>
+                 <width>400</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_workerAddr">
+               <property name="geometry">
+                <rect>
+                 <x>180</x>
+                 <y>130</y>
+                 <width>400</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_workerMajor">
+               <property name="geometry">
+                <rect>
+                 <x>180</x>
+                 <y>40</y>
+                 <width>400</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>TextLabel</string>
+               </property>
+              </widget>
              </widget>
             </item>
            </layout>
