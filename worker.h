@@ -32,7 +32,6 @@ private:
     QString m_name;
     QList<QString> m_majorList;
     QString m_picturePath;
-    int m_age;
     QString m_address;
     QString m_phoneNum;
     QString m_bankAccount;
