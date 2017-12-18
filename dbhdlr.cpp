@@ -32,7 +32,7 @@ bool DBHdlr::getWorkerList(QList<Worker>& list)
         return false;
     }
 
-    QString queryStr = QString("SELECT name, id_num, age FROM HR");
+    QString queryStr = QString("SELECT id, name, major, picture_path, address, phone_num, bank_account FROM Worker");
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -41,14 +41,24 @@ bool DBHdlr::getWorkerList(QList<Worker>& list)
     }
 
     while (query.next()) {
+        int id_num = query.value("id").toInt();
         QString name = query.value("name").toString();
-        int id_num = query.value("id_num").toInt();
-        int age = query.value("age").toInt();
+        QString picturePath = query.value("picture_path").toString();
+        QString address = query.value("address").toString();
+        QString phoneNum = query.value("phone_num").toString();
+        QString bankAccount = query.value("bank_account").toString();
+        QStringList majorList = query.value("major").toString().split(",");
 
         Worker worker;
-        worker.setName(name);
         worker.setIdNum(id_num);
-        worker.setAge(age);
+        worker.setName(name);
+        worker.setPicturePath(picturePath);
+        worker.setAddress(address);
+        worker.setPhoneNum(phoneNum);
+        worker.setBankAccount(bankAccount);
+        foreach(QString major, majorList) {
+            worker.addMajor(major);
+        }
 
         list.append(worker);
     }
@@ -62,8 +72,10 @@ bool DBHdlr::addWorker(Worker worker)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO HR(name, id_num, age) VALUES('%1', %2, %3)")
-            .arg(worker.name()).arg(worker.idNum()).arg(worker.age());
+    QString queryStr = QString("INSERT INTO Worker(id, name, major, picture_path, address, phone_num, bank_account) VALUES(%1,'%2','%3','%4','%5','%6','%7')")
+            .arg(worker.idNum()).arg(worker.name()).arg(worker.majorStr())
+            .arg(worker.picturePath()).arg(worker.address()).arg(worker.phoneNum())
+            .arg(worker.bankAccount());
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {

@@ -27,7 +27,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_connectDB_clicked()
 {
-    m_dbHdlr->connectToDB(QDir::currentPath() + DB_FILE_PATH);
+    // 임시.. 개발 중
+    //QString curPath = QDir::currentPath();
+    QString curPath = "D:/projects/etc/HRM/src";
+
+    m_dbHdlr->connectToDB(curPath + DB_FILE_PATH);
 }
 
 void MainWindow::on_pushButton_refreshHR_clicked()

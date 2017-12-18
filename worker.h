@@ -15,11 +15,10 @@ public:
     QString name();
     void setName(QString value);
     QList<QString> majorList();
+    QString majorStr();
     void addMajor(QString value);
     QString picturePath();
     void setPicturePath(QString value);
-    int age();
-    void setAge(int value);
     QString address();
     void setAddress(QString value);
     QString phoneNum();

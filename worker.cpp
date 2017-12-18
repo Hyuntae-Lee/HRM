@@ -30,6 +30,11 @@ QList<QString> Worker::majorList()
     return m_majorList;
 }
 
+QString Worker::majorStr()
+{
+    return m_majorList.join(",");
+}
+
 void Worker::addMajor(QString value)
 {
     m_majorList.append(value);
@@ -43,16 +48,6 @@ QString Worker::picturePath()
 void Worker::setPicturePath(QString value)
 {
     m_picturePath = value;
-}
-
-int Worker::age()
-{
-    return m_age;
-}
-
-void Worker::setAge(int value)
-{
-    m_age = value;
 }
 
 QString Worker::address()
