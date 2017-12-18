@@ -26,6 +26,7 @@ private slots:
     void on_listView_worker_clicked(const QModelIndex &index);
     void on_pushButton_newCompany_clicked();
     void on_pushButton_refreshCompany_clicked();
+    void on_listView_company_clicked(const QModelIndex &index);
 
 private:
     // worker

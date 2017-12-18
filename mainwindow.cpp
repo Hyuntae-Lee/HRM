@@ -109,6 +109,25 @@ void MainWindow::on_pushButton_refreshCompany_clicked()
     _update_company_list(m_companyList);
 }
 
+void MainWindow::on_listView_company_clicked(const QModelIndex &index)
+{
+    Company company = m_companyList.at(index.row());
+
+    QString name = company.name();
+    QString idStr = QString("%1").arg(company.idNum());
+    QString phoneNum = company.phoneNum();
+    QString address = company.address();
+    QString owner = company.owner();
+    QString bankAccount = company.bankAccount();
+
+    ui->label_companyName->setText(name);
+    ui->label_companyId->setText(idStr);
+    ui->label_companyOwner->setText(owner);
+    ui->label_companyAddress->setText(address);
+    ui->label_companyPhoneNum->setText(phoneNum);
+    ui->label_companyAccount->setText(bankAccount);
+}
+
 void MainWindow::_update_worker_list(QList<Worker> listValue)
 {
     QStringList strList;
