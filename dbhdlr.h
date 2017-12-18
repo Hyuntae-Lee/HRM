@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include "worker.h"
+#include "company.h"
 
 class DBHdlr : public QObject
 {
@@ -13,6 +14,8 @@ public:
     bool connectToDB(QString fileName);
     bool getWorkerList(QList<Worker>& list);
     bool addWorker(Worker worker);
+    bool getCompanyList(QList<Company>& list);
+    bool addCompany(Company company);
 
 signals:
 

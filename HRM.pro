@@ -18,14 +18,17 @@ SOURCES += main.cpp\
     worker.cpp \
     dialognewworker.cpp \
     company.cpp \
-    work.cpp
+    work.cpp \
+    dialognewcompany.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
     worker.h \
     dialognewworker.h \
     company.h \
-    work.h
+    work.h \
+    dialognewcompany.h
 
 FORMS    += mainwindow.ui \
-    dialognewworker.ui
+    dialognewworker.ui \
+    dialognewcompany.ui

@@ -54,3 +54,13 @@ void Company::setBankAccount(QString value)
 {
     m_bankAccount = value;
 }
+
+QString Company::phoneNum()
+{
+    return m_phoneNum;
+}
+
+void Company::setPhoneNum(QString value)
+{
+    m_phoneNum = value;
+}

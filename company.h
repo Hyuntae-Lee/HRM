@@ -19,6 +19,8 @@ public:
     void setOwner(QString value);
     QString bankAccount();
     void setBankAccount(QString value);
+    QString phoneNum();
+    void setPhoneNum(QString value);
 
 private:
     int m_idNum;
@@ -26,6 +28,7 @@ private:
     QString m_address;
     QString m_owner;
     QString m_bankAccount;
+    QString m_phoneNum;
 
 };
 
