@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     dialognewworker.cpp \
     company.cpp \
     work.cpp \
-    dialognewcompany.cpp
+    dialognewcompany.cpp \
+    dialognewwork.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
@@ -27,8 +28,10 @@ HEADERS  += mainwindow.h \
     dialognewworker.h \
     company.h \
     work.h \
-    dialognewcompany.h
+    dialognewcompany.h \
+    dialognewwork.h
 
 FORMS    += mainwindow.ui \
     dialognewworker.ui \
-    dialognewcompany.ui
+    dialognewcompany.ui \
+    dialognewwork.ui

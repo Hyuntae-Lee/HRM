@@ -25,6 +25,7 @@ public:
     void setPhoneNum(QString value);
     QString bankAccount();
     void setBankAccount(QString value);
+    bool operator ==(Worker &w) const;
 
 private:
     int m_idNum;

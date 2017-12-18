@@ -80,6 +80,11 @@ void Worker::setBankAccount(QString value)
     m_bankAccount = value;
 }
 
+bool Worker::operator ==(Worker &w) const
+{
+    return (m_idNum == w.idNum() && m_name == w.name());
+}
+
 
 
 

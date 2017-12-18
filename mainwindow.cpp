@@ -6,6 +6,7 @@
 #include "dbhdlr.h"
 #include "dialognewworker.h"
 #include "dialognewcompany.h"
+#include "dialognewwork.h"
 
 #define DB_FILE_PATH "/data/main.db"
 
@@ -37,7 +38,13 @@ void MainWindow::on_pushButton_connectDB_clicked()
     //QString curPath = QDir::currentPath();
     QString curPath = "D:/projects/etc/HRM/src";
 
-    m_dbHdlr->connectToDB(curPath + DB_FILE_PATH);
+    if (!m_dbHdlr->connectToDB(curPath + DB_FILE_PATH)) {
+        QMessageBox::critical(this, tr("Error"), tr("Cannot connect to database!!"), tr("Ok"));
+        return;
+    }
+
+    _load_worker_list(m_workerList);
+    _load_company_list(m_companyList);
 }
 
 void MainWindow::on_pushButton_newHR_clicked()
@@ -126,6 +133,31 @@ void MainWindow::on_listView_company_clicked(const QModelIndex &index)
     ui->label_companyAddress->setText(address);
     ui->label_companyPhoneNum->setText(phoneNum);
     ui->label_companyAccount->setText(bankAccount);
+}
+
+void MainWindow::on_pushButton_workNew_clicked()
+{
+    DialogNewWork dlg(m_workerList, m_companyList);
+
+    if (dlg.exec() != QDialog::Accepted) {
+        return;
+    }
+
+//    Work work;
+//    if (!dlg.getWorkInfo(&work)) {
+//        return;
+//    }
+
+//    if (!m_dbHdlr->addWork(work)) {
+//        return;
+//    }
+
+    QMessageBox::information(this, tr("Confirm"), tr("A new work is added."), tr("Ok"));
+}
+
+void MainWindow::on_pushButton_workRefresh_clicked()
+{
+
 }
 
 void MainWindow::_update_worker_list(QList<Worker> listValue)

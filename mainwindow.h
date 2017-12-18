@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "worker.h"
 #include "company.h"
+#include "work.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,8 @@ private slots:
     void on_pushButton_newCompany_clicked();
     void on_pushButton_refreshCompany_clicked();
     void on_listView_company_clicked(const QModelIndex &index);
+    void on_pushButton_workNew_clicked();
+    void on_pushButton_workRefresh_clicked();
 
 private:
     // worker
@@ -42,6 +45,7 @@ private:
     QStringListModel* m_model_company;
     QList<Worker> m_workerList;
     QList<Company> m_companyList;
+    QList<Work> m_workList;
 };
 
 #endif // MAINWINDOW_H
