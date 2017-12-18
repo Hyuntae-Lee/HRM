@@ -21,7 +21,7 @@ bool DialogNewWorker::getWorkInfo(Worker* worker)
 
     QString name = ui->lineEdit_name->text();
     QString idStr = ui->lineEdit_id->text();
-    QString jobListStr = ui->lineEdit_job->text();
+    QString majorListStr = ui->lineEdit_major->text();
     QString age = ui->lineEdit_age->text();
 
     worker->setName(name);

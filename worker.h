@@ -10,12 +10,12 @@ public:
     Worker();
 
 public:
-    QString name();
-    void setName(QString value);
     int idNum();
     void setIdNum(int value);
-    QList<QString> jobList();
-    void addJob(QString value);
+    QString name();
+    void setName(QString value);
+    QList<QString> majorList();
+    void addMajor(QString value);
     QString picturePath();
     void setPicturePath(QString value);
     int age();
@@ -28,9 +28,9 @@ public:
     void setBankAccount(QString value);
 
 private:
-    QString m_name;
     int m_idNum;
-    QList<QString> m_jobList;
+    QString m_name;
+    QList<QString> m_majorList;
     QString m_picturePath;
     int m_age;
     QString m_address;

@@ -25,14 +25,14 @@ void Worker::setIdNum(int value)
     m_idNum = value;
 }
 
-QList<QString> Worker::jobList()
+QList<QString> Worker::majorList()
 {
-    return m_jobList;
+    return m_majorList;
 }
 
-void Worker::addJob(QString value)
+void Worker::addMajor(QString value)
 {
-    m_jobList.append(value);
+    m_majorList.append(value);
 }
 
 QString Worker::picturePath()
