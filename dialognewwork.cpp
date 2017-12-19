@@ -27,6 +27,11 @@ DialogNewWork::~DialogNewWork()
     delete ui;
 }
 
+bool DialogNewWork::getWork(Work& out_work)
+{
+    // TODO : 여기서 부터
+}
+
 void DialogNewWork::on_pushButton_workAddParticipant_clicked()
 {
     QModelIndexList modelIdxList = ui->listView_workCandidates->selectionModel()->selectedIndexes();
@@ -34,13 +39,11 @@ void DialogNewWork::on_pushButton_workAddParticipant_clicked()
         Worker worker = m_candidateList.at(modelIdx.row());
 
         // check duplication
-        if (_worker_in_partients(worker)) {
+        if (_worker_in_participants(worker)) {
             return;
         }
 
-        Participant participant;
-        participant.worker = m_candidateList.at(modelIdx.row());
-        m_participantList.append(participant);
+        m_participantList.append(Participant(worker));
     }
 
     _update_participant_list();
@@ -57,9 +60,8 @@ void DialogNewWork::on_tableView_workParticipants_clicked(const QModelIndex &ind
         {
             QList<QDate> dateList;
             if (_pick_dates(dateList)) {
-                QVariant varParams;
-                varParams.setValue<QList<QDate>>(dateList);
-                m_model_participants->setData(index, varParams);
+                Participant participant = m_participantList.at(index.row());
+                participant.setWorkDays(dateList);
             }
         }
         break;
@@ -101,7 +103,7 @@ void DialogNewWork::_update_participant_list()
     m_model_participants->setHorizontalHeaderItem(COLUMN_PAY, new QStandardItem(QString("수당(일)")));
     m_model_participants->setHorizontalHeaderItem(COLUMN_DAYS, new QStandardItem(QString("일정")));
     for (int i = 0; i < m_participantList.count(); i++) {
-        Worker worker = m_participantList.at(i);
+        Worker worker = m_participantList.at(i).worker;
         QString nameStr = QString("%1 (%2)").arg(worker.name()).arg(worker.idNum());
 
         m_model_participants->setItem(i, 0, new QStandardItem(nameStr));
@@ -115,10 +117,10 @@ void DialogNewWork::_init_company_list()
     }
 }
 
-bool DialogNewWork::_worker_in_partients(Worker& worker)
+bool DialogNewWork::_worker_in_participants(Worker& worker)
 {
     foreach(Participant participant, m_participantList) {
-        if (worker.idNum() == participant.workerRef->idNum()) {
+        if (worker.idNum() == participant.worker.idNum()) {
             return true;
         }
     }

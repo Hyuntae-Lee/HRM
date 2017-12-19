@@ -13,10 +13,21 @@ class DialogNewWork;
 class QStringListModel;
 class QStandardItemModel;
 
-typedef struct _Participant {
-    Worker& worker;
-    QList<QDate> workDates;
-} Participant;
+struct Participant
+{
+    Worker worker;
+    QList<QDate> workDateList;
+
+    Participant(Worker& value)
+    {
+        worker = value;
+    }
+
+    void setWorkDays(QList<QDate>& days) {
+        workDateList.clear();
+        workDateList.append(days);
+    }
+};
 
 class DialogNewWork : public QDialog
 {
@@ -34,6 +45,7 @@ public:
     ~DialogNewWork();
 
 public:
+    bool getWork(Work& out_work);
 
 private slots:
     void on_pushButton_workAddParticipant_clicked();
@@ -44,7 +56,7 @@ private:
     void _init_participant_list();
     void _update_participant_list();
     void _init_company_list();
-    bool _worker_in_partients(Worker& worker);
+    bool _worker_in_participants(Worker& worker);
     bool _pick_dates(QList<QDate> &list);
 
 private:
@@ -55,7 +67,7 @@ private:
     QList<Participant> m_participantList;
     QList<Company> m_companyList;
     // result
-    QList<WorkerInfo> m_workerInfoList;
+    //QList<WorkerInfo> m_workerInfoList;
 };
 
 #endif // DIALOGNEWWORK_H
