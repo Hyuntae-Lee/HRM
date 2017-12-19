@@ -29,7 +29,19 @@ DialogNewWork::~DialogNewWork()
 
 bool DialogNewWork::getWork(Work& out_work)
 {
-    // TODO : 여기서 부터
+    // company id
+    int companyId = ui->comboBox_workCompany->currentData().toInt();
+    out_work.setCompanyId(companyId);
+
+    // working day list
+    QList<WorkerInfo> workInfoList;
+    foreach(Participant participant, m_participantList) {
+        WorkerInfo workInfo;
+        workInfo.worker_id = participant.worker.idNum();
+        workInfo.dayList.append(participant.workDateList);
+    }
+
+    return true;
 }
 
 void DialogNewWork::on_pushButton_workAddParticipant_clicked()

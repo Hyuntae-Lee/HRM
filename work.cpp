@@ -30,6 +30,20 @@ QList<WorkerInfo> Work::workerInfoList()
     return m_workerInfoList;
 }
 
+QString Work::workerInfoListStr()
+{
+    QStringList strList;
+    foreach(WorkerInfo workInfo, m_workerInfoList) {
+        QStringList strWork;
+        // - worker id
+        strWork.append(QString("%1").arg(workInfo.worker_id));
+        //
+
+
+        QString strDateList = QString("%1")
+    }
+}
+
 void Work::addWorkerInfoList(QList<WorkerInfo> value)
 {
     m_workerInfoList.append(value);

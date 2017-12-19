@@ -140,3 +140,22 @@ bool DBHdlr::addCompany(Company company)
 
     return true;
 }
+
+bool DBHdlr::addWork(Work work)
+{
+    if (!m_db.isOpen()) {
+        return false;
+    }
+
+    QString queryStr = QString("INSERT INTO Work(id, company_id, workers) VALUES(%1,'%2','%3')")
+            .arg(work.idNum()).arg(work.companyId()).arg(work.owner())
+            .arg(company.address()).arg(company.phoneNum()).arg(company.bankAccount());
+
+    QSqlQuery query(queryStr);
+    if(!query.isActive()) {
+        qWarning() << "addCompany - ERROR: " << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}

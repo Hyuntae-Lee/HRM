@@ -143,14 +143,14 @@ void MainWindow::on_pushButton_workNew_clicked()
         return;
     }
 
-//    Work work;
-//    if (!dlg.getWorkInfo(&work)) {
-//        return;
-//    }
+    Work work;
+    if (!dlg.getWork(&work)) {
+        return;
+    }
 
-//    if (!m_dbHdlr->addWork(work)) {
-//        return;
-//    }
+    if (!m_dbHdlr->addWork(work)) {
+        return;
+    }
 
     QMessageBox::information(this, tr("Confirm"), tr("A new work is added."), tr("Ok"));
 }

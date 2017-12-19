@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include "worker.h"
 #include "company.h"
+#include "work.h"
 
 class DBHdlr : public QObject
 {
@@ -16,6 +17,7 @@ public:
     bool addWorker(Worker worker);
     bool getCompanyList(QList<Company>& list);
     bool addCompany(Company company);
+    bool addWork(Work work);
 
 signals:
 
