@@ -37,15 +37,24 @@ QString Work::workerInfoListStr()
         QStringList strWork;
         // - worker id
         strWork.append(QString("%1").arg(workInfo.worker_id));
-        //
+        // - pay
+        strWork.append(QString("%1").arg(workInfo.payPerDay));
+        // - days
+        QStringList strDateList;
+        foreach(QDate workingDate, workInfo.dayList) {
+            strDateList.append(workingDate.toString("yyyymmdd"));
+        }
+        strWork.append(strDateList.join("-"));
 
-
-        QString strDateList = QString("%1")
+        strList.append(strWork);
     }
+
+    return strList.join(",");
 }
 
-void Work::addWorkerInfoList(QList<WorkerInfo> value)
+void Work::setWorkerInfoList(QList<WorkerInfo> value)
 {
+    m_workerInfoList.clear();
     m_workerInfoList.append(value);
 }
 

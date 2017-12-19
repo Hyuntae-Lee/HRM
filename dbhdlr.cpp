@@ -148,12 +148,11 @@ bool DBHdlr::addWork(Work work)
     }
 
     QString queryStr = QString("INSERT INTO Work(id, company_id, workers) VALUES(%1,'%2','%3')")
-            .arg(work.idNum()).arg(work.companyId()).arg(work.owner())
-            .arg(company.address()).arg(company.phoneNum()).arg(company.bankAccount());
+            .arg(work.idNum()).arg(work.companyId()).arg(work.workerInfoListStr());
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
-        qWarning() << "addCompany - ERROR: " << query.lastError().text();
+        qWarning() << "addWork - ERROR: " << query.lastError().text();
         return false;
     }
 

@@ -24,7 +24,7 @@ public:
     void setCompanyId(int value);
     QList<WorkerInfo> workerInfoList();
     QString workerInfoListStr();
-    void addWorkerInfoList(QList<WorkerInfo> value);
+    void setWorkerInfoList(QList<WorkerInfo> value);
     QDate dateBegin();
     void setDateBegin(QDate value);
     QDate dateEnd();

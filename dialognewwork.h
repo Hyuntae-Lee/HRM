@@ -45,7 +45,7 @@ public:
     ~DialogNewWork();
 
 public:
-    bool getWork(Work& out_work);
+    bool getWork(Work* out_work);
 
 private slots:
     void on_pushButton_workAddParticipant_clicked();

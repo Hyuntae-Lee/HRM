@@ -27,11 +27,15 @@ DialogNewWork::~DialogNewWork()
     delete ui;
 }
 
-bool DialogNewWork::getWork(Work& out_work)
+bool DialogNewWork::getWork(Work* out_work)
 {
+    if (!out_work) {
+        return false;
+    }
+
     // company id
     int companyId = ui->comboBox_workCompany->currentData().toInt();
-    out_work.setCompanyId(companyId);
+    out_work->setCompanyId(companyId);
 
     // working day list
     QList<WorkerInfo> workInfoList;
@@ -40,6 +44,7 @@ bool DialogNewWork::getWork(Work& out_work)
         workInfo.worker_id = participant.worker.idNum();
         workInfo.dayList.append(participant.workDateList);
     }
+    out_work->setWorkerInfoList(workInfoList);
 
     return true;
 }
