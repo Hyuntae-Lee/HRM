@@ -32,7 +32,6 @@ private slots:
     void on_pushButton_workRefresh_clicked();
 
 private:
-    // worker
     void _update_worker_list(QList<Worker> listValue);
     void _load_worker_list(QList<Worker> &listValue);
     void _update_company_list(QList<Company> listValue);

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     company.cpp \
     work.cpp \
     dialognewcompany.cpp \
-    dialognewwork.cpp
+    dialognewwork.cpp \
+    dialogdatepicker.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
@@ -29,9 +30,11 @@ HEADERS  += mainwindow.h \
     company.h \
     work.h \
     dialognewcompany.h \
-    dialognewwork.h
+    dialognewwork.h \
+    dialogdatepicker.h
 
 FORMS    += mainwindow.ui \
     dialognewworker.ui \
     dialognewcompany.ui \
-    dialognewwork.ui
+    dialognewwork.ui \
+    dialogdatepicker.ui

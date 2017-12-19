@@ -3,18 +3,12 @@
 
 #include <QString>
 #include <QList>
-
-struct WorkDate
-{
-    int year;
-    int month;
-    int day;
-};
+#include <QDate>
 
 struct WorkerInfo
 {
     int worker_id;
-    QList<WorkDate> dayList;
+    QList<QDate> dayList;
     int payPerDay;
 };
 
@@ -28,16 +22,19 @@ public:
     void setIdNum(int value);
     int companyId();
     void setCompanyId(int value);
-    QList<WorkDate> dayList();
-    void addDayList(WorkDate value);
     QList<WorkerInfo> workerInfoList();
     void addWorkerInfoList(QList<WorkerInfo> value);
+    QDate dateBegin();
+    void setDateBegin(QDate value);
+    QDate dateEnd();
+    void setDateEnd(QDate value);
 
 private:
     int m_idNum;
     int m_companyId;
-    QList<WorkDate> m_dayList;
     QList<WorkerInfo> m_workerInfoList;
+    QDate m_dateBegin;
+    QDate m_dateEnd;
 };
 
 #endif // WORK_H

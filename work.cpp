@@ -25,16 +25,6 @@ void Work::setCompanyId(int value)
     m_companyId = value;
 }
 
-QList<WorkDate> Work::dayList()
-{
-    return m_dayList;
-}
-
-void Work::addDayList(WorkDate value)
-{
-    m_dayList.append(value);
-}
-
 QList<WorkerInfo> Work::workerInfoList()
 {
     return m_workerInfoList;
@@ -43,4 +33,24 @@ QList<WorkerInfo> Work::workerInfoList()
 void Work::addWorkerInfoList(QList<WorkerInfo> value)
 {
     m_workerInfoList.append(value);
+}
+
+QDate Work::dateBegin()
+{
+    return m_dateBegin;
+}
+
+void Work::setDateBegin(QDate value)
+{
+    m_dateBegin = value;
+}
+
+QDate Work::dateEnd()
+{
+    return m_dateEnd;
+}
+
+void Work::setDateEnd(QDate value)
+{
+    m_dateEnd = value;
 }
