@@ -12,24 +12,6 @@ class DialogNewWork;
 
 class QStringListModel;
 class ParticipantTableModel;
-
-struct Participant
-{
-    int workerId;
-    int payPerDay;
-    QList<QDate> workDateList;
-
-    Participant(Worker& value)
-    {
-        workerId = value.idNum();
-    }
-
-    void setWorkDays(QList<QDate>& days) {
-        workDateList.clear();
-        workDateList.append(days);
-    }
-};
-
 class DialogNewWork : public QDialog
 {
     Q_OBJECT
@@ -64,7 +46,6 @@ private:
     QStringListModel* m_model_candidates;
     ParticipantTableModel *m_model_participants;
     QList<Worker> m_candidateList;
-    QList<Participant> m_participantList;
     QList<Company> m_companyList;
     // result
     //QList<WorkerInfo> m_workerInfoList;

@@ -11,14 +11,23 @@ public:
     ParticipantTableModelItem();
 
 public:
+    int workerId();
+    void setWorkerId(int value);
+    QString workerName();
+    void setWorkerName(QString value);
+    int payPerDay();
+    void setPayPerDay(int value);
+    QList<QDate>& workDateList();
+    void addWorkDay(QDate value);
+    void addWorkDayList(QList<QDate> value);
     QString labelStr();
     QString daysStr();
 
 private:
-    int workerId;
-    QString workerName;
-    int payPerDay;
-    QList<QDate> workDateList;
+    int m_workerId;
+    QString m_workerName;
+    int m_payPerDay;
+    QList<QDate> m_workDateList;
 };
 
 #endif // PARTICIPANTTABLEMODELITEM_H

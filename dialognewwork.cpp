@@ -38,6 +38,8 @@ bool DialogNewWork::getWork(Work* out_work)
     out_work->setCompanyId(companyId);
 
     // working day list
+    QList<QDate> workDateList = m_model_participants->
+
     QList<WorkerInfo> workInfoList;
     foreach(Participant participant, m_participantList) {
         WorkerInfo workInfo;

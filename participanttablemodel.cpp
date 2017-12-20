@@ -36,10 +36,10 @@ void ParticipantTableModel::addItem(int id, QString name, int pay, QList<QDate> 
     }
 
     ParticipantTableModelItem item;
-    item.workerId = id;
-    item.workerName = name;
-    item.payPerDay = pay;
-    item.workDateList.append(days);
+    item.setWorkerId(id);
+    item.setWorkerName(name);
+    item.setPayPerDay(pay);
+    item.addWorkDayList(days);
 }
 
 bool ParticipantTableModel::setPay(int index, int pay)
@@ -128,7 +128,7 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
 bool ParticipantTableModel::_worker_in_participants(int worker_id)
 {
     foreach(ParticipantTableModelItem item, m_itemList) {
-        if (worker_id == item.workerId) {
+        if (worker_id == item.workerId()) {
             return true;
         }
     }
