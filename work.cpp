@@ -42,38 +42,18 @@ QString Work::workerInfoListStr()
         // - days
         QStringList strDateList;
         foreach(QDate workingDate, workInfo.dayList) {
-            strDateList.append(workingDate.toString("yyyymmdd"));
+            strDateList.append(workingDate.toString("yyyyMMdd"));
         }
         strWork.append(strDateList.join("-"));
 
         strList.append(strWork);
     }
 
-    return strList.join(",");
+    return strList.join(";");
 }
 
 void Work::setWorkerInfoList(QList<WorkerInfo> value)
 {
     m_workerInfoList.clear();
     m_workerInfoList.append(value);
-}
-
-QDate Work::dateBegin()
-{
-    return m_dateBegin;
-}
-
-void Work::setDateBegin(QDate value)
-{
-    m_dateBegin = value;
-}
-
-QDate Work::dateEnd()
-{
-    return m_dateEnd;
-}
-
-void Work::setDateEnd(QDate value)
-{
-    m_dateEnd = value;
 }

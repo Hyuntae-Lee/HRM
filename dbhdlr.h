@@ -17,6 +17,7 @@ public:
     bool addWorker(Worker worker);
     bool getCompanyList(QList<Company>& list);
     bool addCompany(Company company);
+    bool getWorkList(QList<Work>& list);
     bool addWork(Work work);
 
 signals:

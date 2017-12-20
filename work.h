@@ -25,17 +25,11 @@ public:
     QList<WorkerInfo> workerInfoList();
     QString workerInfoListStr();
     void setWorkerInfoList(QList<WorkerInfo> value);
-    QDate dateBegin();
-    void setDateBegin(QDate value);
-    QDate dateEnd();
-    void setDateEnd(QDate value);
 
 private:
     int m_idNum;
     int m_companyId;
     QList<WorkerInfo> m_workerInfoList;
-    QDate m_dateBegin;
-    QDate m_dateEnd;
 };
 
 #endif // WORK_H

@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     work.cpp \
     dialognewcompany.cpp \
     dialognewwork.cpp \
-    dialogdatepicker.cpp
+    dialogdatepicker.cpp \
+    participanttablemodel.cpp \
+    participanttablemodelitem.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
@@ -31,7 +33,9 @@ HEADERS  += mainwindow.h \
     work.h \
     dialognewcompany.h \
     dialognewwork.h \
-    dialogdatepicker.h
+    dialogdatepicker.h \
+    participanttablemodel.h \
+    participanttablemodelitem.h
 
 FORMS    += mainwindow.ui \
     dialognewworker.ui \

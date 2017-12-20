@@ -27,6 +27,8 @@ public:
     void setBankAccount(QString value);
     bool operator ==(Worker &w) const;
 
+    QString labelStr();
+
 private:
     int m_idNum;
     QString m_name;

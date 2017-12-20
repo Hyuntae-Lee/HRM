@@ -141,14 +141,49 @@ bool DBHdlr::addCompany(Company company)
     return true;
 }
 
+bool DBHdlr::getWorkList(QList<Work>& list)
+{
+    if (!m_db.isOpen()) {
+        return false;
+    }
+
+    QString queryStr = QString("SELECT id, company_id, workers FROM Work");
+
+    QSqlQuery query(queryStr);
+    if(!query.isActive()) {
+        qWarning() << "getWorkList - ERROR: " << query.lastError().text();
+        return false;
+    }
+
+    while (query.next()) {
+        int id_num = query.value("id").toInt();
+        QString companyId = query.value("company_id").toString();
+        QString workerInfoListStr = query.value("workers").toString();
+
+        Work work;
+        work.setIdNum(id_num);
+        work.setCompanyId(companyId.toInt());
+
+        // workers
+//        company.setAddress(address);
+//        company.setPhoneNum(phoneNum);
+//        company.setBankAccount(bankAccount);
+//        company.setOwner(owner);
+
+        list.append(work);
+    }
+
+    return true;
+}
+
 bool DBHdlr::addWork(Work work)
 {
     if (!m_db.isOpen()) {
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Work(id, company_id, workers) VALUES(%1,'%2','%3')")
-            .arg(work.idNum()).arg(work.companyId()).arg(work.workerInfoListStr());
+    QString queryStr = QString("INSERT INTO Work(company_id, workers) VALUES(%1,'%2','%3')")
+            .arg(work.companyId()).arg(work.workerInfoListStr());
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {

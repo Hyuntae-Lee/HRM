@@ -11,16 +11,17 @@ class DialogNewWork;
 }
 
 class QStringListModel;
-class QStandardItemModel;
+class ParticipantTableModel;
 
 struct Participant
 {
-    Worker worker;
+    int workerId;
+    int payPerDay;
     QList<QDate> workDateList;
 
     Participant(Worker& value)
     {
-        worker = value;
+        workerId = value.idNum();
     }
 
     void setWorkDays(QList<QDate>& days) {
@@ -54,15 +55,14 @@ private slots:
 private:
     void _init_candidate_list();
     void _init_participant_list();
-    void _update_participant_list();
     void _init_company_list();
-    bool _worker_in_participants(Worker& worker);
     bool _pick_dates(QList<QDate> &list);
+    QString _get_label_string_of_worker(int id);
 
 private:
     Ui::DialogNewWork *ui;
     QStringListModel* m_model_candidates;
-    QStandardItemModel *m_model_participants;
+    ParticipantTableModel *m_model_participants;
     QList<Worker> m_candidateList;
     QList<Participant> m_participantList;
     QList<Company> m_companyList;
