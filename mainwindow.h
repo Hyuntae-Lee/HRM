@@ -36,12 +36,17 @@ private:
     void _load_worker_list(QList<Worker> &listValue);
     void _update_company_list(QList<Company> listValue);
     void _load_company_list(QList<Company> &listValue);
+    void _update_work_list(QList<Work> listValue);
+    void _load_work_list(QList<Work> &listValue);
+    QString _companyLabelStr(int id);
+    QString _workerLabelStr(int id);
 
 private:
     Ui::MainWindow *ui;
     DBHdlr* m_dbHdlr;
     QStringListModel* m_model_worker;
     QStringListModel* m_model_company;
+    QStringListModel* m_model_work;
     QList<Worker> m_workerList;
     QList<Company> m_companyList;
     QList<Work> m_workList;

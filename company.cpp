@@ -64,3 +64,13 @@ void Company::setPhoneNum(QString value)
 {
     m_phoneNum = value;
 }
+
+bool Company::operator ==(Company &w) const
+{
+    return (m_idNum == w.idNum() && m_name == w.name());
+}
+
+QString Company::labelStr()
+{
+     return QString("%1(%2)").arg(name()).arg(idNum());
+}

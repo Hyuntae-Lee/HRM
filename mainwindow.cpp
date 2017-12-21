@@ -17,11 +17,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_dbHdlr = new DBHdlr;
     m_model_worker = new QStringListModel;
     m_model_company = new QStringListModel;
+    m_model_work = new QStringListModel;
 
     ui->setupUi(this);
 
     ui->listView_worker->setModel(m_model_worker);
     ui->listView_company->setModel(m_model_company);
+    ui->listView_work->setModel(m_model_work);
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +31,7 @@ MainWindow::~MainWindow()
     delete m_dbHdlr;
     delete m_model_worker;
     delete m_model_company;
+    delete m_model_work;
     delete ui;
 }
 
@@ -157,7 +160,8 @@ void MainWindow::on_pushButton_workNew_clicked()
 
 void MainWindow::on_pushButton_workRefresh_clicked()
 {
-
+    _load_work_list(m_workList);
+    _update_work_list(m_workList);
 }
 
 void MainWindow::_update_worker_list(QList<Worker> listValue)
@@ -198,4 +202,55 @@ void MainWindow::_load_company_list(QList<Company> &listValue)
         QMessageBox::critical(this, tr("Error"), tr("Cannot load data from!!"), tr("Ok"));
         return;
     }
+}
+
+void MainWindow::_update_work_list(QList<Work> listValue)
+{
+    QStringList strList;
+    foreach (Work work, listValue) {
+        QString companyInfoStr = _companyLabelStr(work.companyId());
+
+        QStringList workerInfoStrList;
+        foreach (WorkerInfo workerInfo, work.workerInfoList()) {
+            QString labelWorkerInfo = _workerLabelStr(workerInfo.worker_id);
+            workerInfoStrList.append(labelWorkerInfo);
+        }
+
+        QString workLabelStr = QString("%1\t%2").arg(companyInfoStr).arg(workerInfoStrList.join(", "));
+
+        strList.append(workLabelStr);
+    }
+
+    m_model_work->setStringList(strList);
+}
+
+void MainWindow::_load_work_list(QList<Work> &listValue)
+{
+    listValue.clear();
+    if (!m_dbHdlr->getWorkList(listValue)) {
+        QMessageBox::critical(this, tr("Error"), tr("Cannot load data from!!"), tr("Ok"));
+        return;
+    }
+}
+
+QString MainWindow::_companyLabelStr(int id)
+{
+    foreach (Company item, m_companyList) {
+        if (item.idNum() == id) {
+            return item.labelStr();
+        }
+    }
+
+    return "";
+}
+
+QString MainWindow::_workerLabelStr(int id)
+{
+    foreach (Worker item, m_workerList) {
+        if (item.idNum() == id) {
+            return item.labelStr();
+        }
+    }
+
+    return "";
 }

@@ -156,19 +156,42 @@ bool DBHdlr::getWorkList(QList<Work>& list)
     }
 
     while (query.next()) {
+        // id
         int id_num = query.value("id").toInt();
+
+        // company
         QString companyId = query.value("company_id").toString();
-        QString workerInfoListStr = query.value("workers").toString();
+
+        // workers
+        QList<WorkerInfo> workerInfoList;
+        QString workerInfoStrTotal = query.value("workers").toString();
+        QStringList workerInfoStrTotalList = workerInfoStrTotal.split(",");
+        foreach (QString workerInfoStrRaw, workerInfoStrTotalList) {
+            QStringList workerInfoStr = workerInfoStrRaw.split(";");
+
+            int workerId = workerInfoStr[0].toInt();
+            int workerPay = workerInfoStr[1].toInt();
+
+            QStringList workerInfoDateStrList = workerInfoStr[2].split("-");
+            QList<QDate> workerDateList;
+            foreach (QString dateStr, workerInfoDateStrList) {
+                QDate date = QDate::fromString(dateStr, "yyMMdd");
+                workerDateList.append(date);
+            }
+
+            WorkerInfo workerInfo;
+            workerInfo.worker_id = workerId;
+            workerInfo.payPerDay = workerPay;
+            workerInfo.dayList.append(workerDateList);
+
+            workerInfoList.append(workerInfo);
+        }
+
 
         Work work;
         work.setIdNum(id_num);
         work.setCompanyId(companyId.toInt());
-
-        // workers
-//        company.setAddress(address);
-//        company.setPhoneNum(phoneNum);
-//        company.setBankAccount(bankAccount);
-//        company.setOwner(owner);
+        work.setWorkerInfoList(workerInfoList);
 
         list.append(work);
     }
