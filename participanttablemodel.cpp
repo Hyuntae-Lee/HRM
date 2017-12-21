@@ -2,22 +2,22 @@
 #include <QMessageBox>
 
 typedef enum {
-    COLUMN_LABEL = 0,
-    COLUMN_PAY,
-    COLUMN_DATES,
-    COLUMN_NUM
-} ModelItemColumnIdx;
+    PARTICIPANT_COLUMN_LABEL = 0,
+    PARTICIPANT_COLUMN_PAY,
+    PARTICIPANT_COLUMN_DATES,
+    PARTICIPANT_COLUMN_NUM
+} ParticipantModelItemColumnIdx;
 
-typedef struct _ModelItem_t {
-    ModelItemColumnIdx idx;
+typedef struct _ParticipantModelItem_t {
+    ParticipantModelItemColumnIdx idx;
     QString label;
-} ModelItem_t;
+} ParticipantModelItem_t;
 
-ModelItem_t s_model_item[] = {
+static ParticipantModelItem_t s_model_item[] = {
     /*     idx    ,    label   */
-    { COLUMN_LABEL, "대상"     },
-    { COLUMN_PAY  , "수당(일)" },
-    { COLUMN_DATES, "일정"     }
+    { PARTICIPANT_COLUMN_LABEL, "대상"     },
+    { PARTICIPANT_COLUMN_PAY  , "수당(일)" },
+    { PARTICIPANT_COLUMN_DATES, "일정"     }
 };
 
 ParticipantTableModel::ParticipantTableModel(QObject *parent)
@@ -94,7 +94,7 @@ QVariant ParticipantTableModel::headerData(int section, Qt::Orientation orientat
     }
 
     if (orientation == Qt::Horizontal) {
-        if (section >= COLUMN_NUM) {
+        if (section >= PARTICIPANT_COLUMN_NUM) {
             return QVariant();
         }
 
@@ -115,7 +115,7 @@ int ParticipantTableModel::rowCount(const QModelIndex &) const
 
 int ParticipantTableModel::columnCount(const QModelIndex &) const
 {
-    return COLUMN_NUM;
+    return PARTICIPANT_COLUMN_NUM;
 }
 
 QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
@@ -131,15 +131,15 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         ParticipantTableModelItem item = m_itemList[index.row()];
 
-        if (index.column() == COLUMN_LABEL) {
+        if (index.column() == PARTICIPANT_COLUMN_LABEL) {
             return item.labelStr();
         }
 
-        if (index.column() == COLUMN_PAY) {
+        if (index.column() == PARTICIPANT_COLUMN_PAY) {
             return QString("%1").arg(item.payPerDay());
         }
 
-        if (index.column() == COLUMN_DATES) {
+        if (index.column() == PARTICIPANT_COLUMN_DATES) {
             return item.daysStr();
         }
     }
@@ -149,7 +149,7 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
 
 bool ParticipantTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (role == Qt::EditRole && index.column() == COLUMN_PAY) {
+    if (role == Qt::EditRole && index.column() == PARTICIPANT_COLUMN_PAY) {
         QString strValue = value.toString();
 
         bool ok;
@@ -170,15 +170,15 @@ Qt::ItemFlags ParticipantTableModel::flags (const QModelIndex &index) const
 {
     ParticipantTableModelItem item = m_itemList[index.row()];
 
-    if (index.column() == COLUMN_LABEL) {
+    if (index.column() == PARTICIPANT_COLUMN_LABEL) {
         return Qt::ItemIsEnabled | Qt::ItemIsEditable;
     }
 
-    if (index.column() == COLUMN_PAY) {
+    if (index.column() == PARTICIPANT_COLUMN_PAY) {
         return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
     }
 
-    if (index.column() == COLUMN_DATES) {
+    if (index.column() == PARTICIPANT_COLUMN_DATES) {
         return Qt::ItemIsEnabled | Qt::ItemIsEditable;
     }
 

@@ -7,6 +7,7 @@
 #include "dialognewworker.h"
 #include "dialognewcompany.h"
 #include "dialognewwork.h"
+#include "workhistorytablemodel.h"
 
 #define DB_FILE_PATH "/data/main.db"
 
@@ -18,12 +19,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_model_worker = new QStringListModel;
     m_model_company = new QStringListModel;
     m_model_work = new QStringListModel;
+    m_model_workHistory = new WorkHistoryTableModel(m_workList, m_workerList, m_companyList);
 
     ui->setupUi(this);
 
     ui->listView_worker->setModel(m_model_worker);
     ui->listView_company->setModel(m_model_company);
     ui->listView_work->setModel(m_model_work);
+    ui->tableView_history->setModel(m_model_workHistory);
 }
 
 MainWindow::~MainWindow()
@@ -32,6 +35,7 @@ MainWindow::~MainWindow()
     delete m_model_worker;
     delete m_model_company;
     delete m_model_work;
+    delete m_model_workHistory;
     delete ui;
 }
 
@@ -91,6 +95,8 @@ void MainWindow::on_listView_worker_clicked(const QModelIndex &index)
     ui->label_workerPhoneNum->setText(phoneNum);
     ui->label_workerAddr->setText(address);
     ui->label_workerMajor->setText(majorStr);
+
+    m_model_workHistory->setWorker(worker.idNum());
 }
 
 void MainWindow::on_pushButton_newCompany_clicked()
@@ -212,7 +218,7 @@ void MainWindow::_update_work_list(QList<Work> listValue)
 
         QStringList workerInfoStrList;
         foreach (WorkerInfo workerInfo, work.workerInfoList()) {
-            QString labelWorkerInfo = _workerLabelStr(workerInfo.worker_id);
+            QString labelWorkerInfo = _workerNameStr(workerInfo.worker_id);
             workerInfoStrList.append(labelWorkerInfo);
         }
 
@@ -244,11 +250,11 @@ QString MainWindow::_companyLabelStr(int id)
     return "";
 }
 
-QString MainWindow::_workerLabelStr(int id)
+QString MainWindow::_workerNameStr(int id)
 {
     foreach (Worker item, m_workerList) {
         if (item.idNum() == id) {
-            return item.labelStr();
+            return item.name();
         }
     }
 

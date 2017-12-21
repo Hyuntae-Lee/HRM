@@ -45,7 +45,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_worker">
        <attribute name="title">
@@ -92,6 +92,13 @@
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>등록정보</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
@@ -191,7 +198,14 @@
            </layout>
           </item>
           <item>
-           <widget class="QListView" name="listView_historyForWorker"/>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>업무내역</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableView" name="tableView_history"/>
           </item>
          </layout>
         </item>

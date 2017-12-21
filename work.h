@@ -24,6 +24,7 @@ public:
     void setCompanyId(int value);
     QList<WorkerInfo> workerInfoList();
     void setWorkerInfoList(QList<WorkerInfo> value);
+    bool isWorkerIn(int worker_id);
 
 private:
     int m_idNum;

@@ -12,6 +12,7 @@ class MainWindow;
 
 class DBHdlr;
 class QStringListModel;
+class WorkHistoryTableModel;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -39,7 +40,7 @@ private:
     void _update_work_list(QList<Work> listValue);
     void _load_work_list(QList<Work> &listValue);
     QString _companyLabelStr(int id);
-    QString _workerLabelStr(int id);
+    QString _workerNameStr(int id);
 
 private:
     Ui::MainWindow *ui;
@@ -47,6 +48,7 @@ private:
     QStringListModel* m_model_worker;
     QStringListModel* m_model_company;
     QStringListModel* m_model_work;
+    WorkHistoryTableModel* m_model_workHistory;
     QList<Worker> m_workerList;
     QList<Company> m_companyList;
     QList<Work> m_workList;

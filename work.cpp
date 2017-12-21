@@ -35,3 +35,14 @@ void Work::setWorkerInfoList(QList<WorkerInfo> value)
     m_workerInfoList.clear();
     m_workerInfoList.append(value);
 }
+
+bool Work::isWorkerIn(int worker_id)
+{
+    foreach(WorkerInfo workerInfo, m_workerInfoList) {
+        if (workerInfo.worker_id == worker_id) {
+            return true;
+        }
+    }
+
+    return false;
+}
