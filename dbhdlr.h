@@ -19,6 +19,7 @@ public:
     bool addCompany(Company company);
     bool getWorkList(QList<Work>& list);
     bool addWork(Work work);
+    QString packWorkInfoStr(Work& work);
 
 signals:
 

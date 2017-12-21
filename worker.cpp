@@ -87,7 +87,7 @@ bool Worker::operator ==(Worker &w) const
 
 QString Worker::labelStr()
 {
-    return QString("%1 (%2)").arg(name()).arg(idNum());
+    return QString("%1(%2)").arg(name()).arg(idNum());
 }
 
 

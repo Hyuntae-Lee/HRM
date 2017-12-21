@@ -187,7 +187,6 @@ bool DBHdlr::getWorkList(QList<Work>& list)
             workerInfoList.append(workerInfo);
         }
 
-
         Work work;
         work.setIdNum(id_num);
         work.setCompanyId(companyId.toInt());
@@ -206,7 +205,7 @@ bool DBHdlr::addWork(Work work)
     }
 
     QString queryStr = QString("INSERT INTO Work(company_id, workers) VALUES(%1,'%2')")
-            .arg(work.companyId()).arg(work.workerInfoListStr());
+            .arg(work.companyId()).arg(packWorkInfoStr(work));
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -215,4 +214,28 @@ bool DBHdlr::addWork(Work work)
     }
 
     return true;
+}
+
+QString DBHdlr::packWorkInfoStr(Work& work)
+{
+    QList<WorkerInfo> workerInfoList = work.workerInfoList();
+
+    QStringList strList;
+    foreach(WorkerInfo workInfo, workerInfoList) {
+        QStringList strWorker;
+        // - worker id
+        strWorker.append(QString("%1").arg(workInfo.worker_id));
+        // - pay
+        strWorker.append(QString("%1").arg(workInfo.payPerDay));
+        // - days
+        QStringList strDateList;
+        foreach(QDate workingDate, workInfo.dayList) {
+            strDateList.append(workingDate.toString("yyyyMMdd"));
+        }
+        strWorker.append(strDateList.join("-"));
+
+        strList.append(strWorker.join(";"));
+    }
+
+    return strList.join(",");
 }

@@ -23,7 +23,6 @@ public:
     int companyId();
     void setCompanyId(int value);
     QList<WorkerInfo> workerInfoList();
-    QString workerInfoListStr();
     void setWorkerInfoList(QList<WorkerInfo> value);
 
 private:
