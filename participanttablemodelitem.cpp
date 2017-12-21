@@ -45,15 +45,22 @@ void ParticipantTableModelItem::addWorkDay(QDate value)
     m_workDateList.append(value);
 }
 
-void ParticipantTableModelItem::addWorkDayList(QList<QDate> value)
+void ParticipantTableModelItem::setWorkDayList(QList<QDate> value)
 {
+    m_workDateList.clear();
     m_workDateList.append(value);
 }
 
 QString ParticipantTableModelItem::labelStr() {
-    return QString("%1(%2)").arg(workerName).arg(workerId);
+    return QString("%1(%2)").arg(workerName()).arg(workerId());
 }
 
 QString ParticipantTableModelItem::daysStr() {
-    return QString("총 %1일").arg(workDateList.count());
+    QList<QDate> dateList = workDateList();
+
+    if (dateList.count() <= 0) {
+        return "";
+    }
+
+    return QString("%1 외 %2 일").arg(dateList[0].toString(Qt::DefaultLocaleLongDate)).arg(dateList.count());
 }

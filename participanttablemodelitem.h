@@ -19,7 +19,7 @@ public:
     void setPayPerDay(int value);
     QList<QDate>& workDateList();
     void addWorkDay(QDate value);
-    void addWorkDayList(QList<QDate> value);
+    void setWorkDayList(QList<QDate> value);
     QString labelStr();
     QString daysStr();
 

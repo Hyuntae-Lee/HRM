@@ -1,4 +1,5 @@
 #include "participanttablemodel.h"
+#include <QMessageBox>
 
 typedef enum {
     COLUMN_LABEL = 0,
@@ -29,7 +30,7 @@ void ParticipantTableModel::clearItems()
     m_itemList.clear();
 }
 
-void ParticipantTableModel::addItem(int id, QString name, int pay, QList<QDate> days)
+void ParticipantTableModel::addItem(int id, QString name, int pay)
 {
     if (_worker_in_participants(id)) {
         return;
@@ -39,7 +40,15 @@ void ParticipantTableModel::addItem(int id, QString name, int pay, QList<QDate> 
     item.setWorkerId(id);
     item.setWorkerName(name);
     item.setPayPerDay(pay);
-    item.addWorkDayList(days);
+
+    m_itemList.append(item);
+
+    emit layoutChanged();
+}
+
+int ParticipantTableModel::workerId(int index)
+{
+    return m_itemList[index].workerId();
 }
 
 bool ParticipantTableModel::setPay(int index, int pay)
@@ -48,21 +57,34 @@ bool ParticipantTableModel::setPay(int index, int pay)
         return false;
     }
 
-    m_itemList[index].payPerDay = pay;
+    m_itemList[index].setPayPerDay(pay);
 
     return true;
 }
 
-bool ParticipantTableModel::setDays(int index, QList<QDate> days)
+int ParticipantTableModel::pay(int index)
 {
     if (index >= m_itemList.count()) {
         return false;
     }
 
-    m_itemList[index].workDateList.clear();
-    m_itemList[index].workDateList.append(days);
+    return m_itemList[index].payPerDay();
+}
+
+bool ParticipantTableModel::setDayList(int index, QList<QDate> list)
+{
+    if (index >= m_itemList.count()) {
+        return false;
+    }
+
+    m_itemList[index].setWorkDayList(list);
 
     return true;
+}
+
+QList<QDate>& ParticipantTableModel::dayList(int index)
+{
+    return m_itemList[index].workDateList();
 }
 
 QVariant ParticipantTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -103,7 +125,7 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
     }
 
     if (role == Qt::TextAlignmentRole) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
+        return int(Qt::AlignCenter | Qt::AlignVCenter);
     }
 
     if (role == Qt::DisplayRole) {
@@ -114,7 +136,7 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
         }
 
         if (index.column() == COLUMN_PAY) {
-            return QString("%1 원").arg(item.payPerDay);
+            return QString("%1").arg(item.payPerDay());
         }
 
         if (index.column() == COLUMN_DATES) {
@@ -123,6 +145,44 @@ QVariant ParticipantTableModel::data(const QModelIndex &index, int role) const
     }
 
     return QVariant();
+}
+
+bool ParticipantTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (role == Qt::EditRole && index.column() == COLUMN_PAY) {
+        QString strValue = value.toString();
+
+        bool ok;
+        int intValue = strValue.toInt(&ok);
+        if (!ok) {
+            QMessageBox::critical(NULL, QString("오류"), QString("숫자만 입력 가능 합니다."), QString("예"));
+            return false;
+        }
+
+        m_itemList[index.row()].setPayPerDay(intValue);
+        return true;
+    }
+
+    return false;
+}
+
+Qt::ItemFlags ParticipantTableModel::flags (const QModelIndex &index) const
+{
+    ParticipantTableModelItem item = m_itemList[index.row()];
+
+    if (index.column() == COLUMN_LABEL) {
+        return Qt::ItemIsEnabled | Qt::ItemIsEditable;
+    }
+
+    if (index.column() == COLUMN_PAY) {
+        return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    }
+
+    if (index.column() == COLUMN_DATES) {
+        return Qt::ItemIsEnabled | Qt::ItemIsEditable;
+    }
+
+    return Qt::NoItemFlags | Qt::ItemIsEditable;
 }
 
 bool ParticipantTableModel::_worker_in_participants(int worker_id)

@@ -38,6 +38,12 @@
      <height>281</height>
     </rect>
    </property>
+   <property name="horizontalHeaderFormat">
+    <enum>QCalendarWidget::ShortDayNames</enum>
+   </property>
+   <property name="verticalHeaderFormat">
+    <enum>QCalendarWidget::NoVerticalHeader</enum>
+   </property>
   </widget>
   <widget class="QListView" name="listView_selectedDates">
    <property name="geometry">

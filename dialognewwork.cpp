@@ -37,19 +37,17 @@ bool DialogNewWork::getWork(Work* out_work)
     int companyId = ui->comboBox_workCompany->currentData().toInt();
     out_work->setCompanyId(companyId);
 
-    // working day list
-    QList<QDate> workDateList = m_model_participants->
+    // workers
+    QList<WorkerInfo> workerInfoList;
+    for (int i = 0; i < m_model_participants->rowCount(); i ++) {
+        WorkerInfo workerInfo;
+        workerInfo.worker_id = m_model_participants->workerId(i);
+        workerInfo.payPerDay = m_model_participants->pay(i);
+        workerInfo.dayList.append(m_model_participants->dayList(i));
 
-    QList<WorkerInfo> workInfoList;
-    foreach(Participant participant, m_participantList) {
-        WorkerInfo workInfo;
-        workInfo.worker_id = participant.workerId;
-        workInfo.payPerDay = participant.payPerDay;
-        workInfo.dayList.append(participant.workDateList);
-
-        workInfoList.append(workInfo);
+        workerInfoList.append(workerInfo);
     }
-    out_work->setWorkerInfoList(workInfoList);
+    out_work->setWorkerInfoList(workerInfoList);
 
     return true;
 }
@@ -58,11 +56,9 @@ void DialogNewWork::on_pushButton_workAddParticipant_clicked()
 {
     QModelIndexList modelIdxList = ui->listView_workCandidates->selectionModel()->selectedIndexes();
     foreach(QModelIndex modelIdx, modelIdxList) {
-        Worker worker = m_candidateList.at(modelIdx.row());
-        m_model_participants->addItem(worker.idNum(), worker.name(), 0, QList<QDate>());
+        Worker worker = m_candidateList[modelIdx.row()];
+        m_model_participants->addItem(worker.idNum(), worker.name(), 0);
     }
-
-    ui->tableView_workParticipants->update();
 }
 
 void DialogNewWork::on_tableView_workParticipants_clicked(const QModelIndex &index)
@@ -76,7 +72,7 @@ void DialogNewWork::on_tableView_workParticipants_clicked(const QModelIndex &ind
         {
             QList<QDate> dateList;
             if (_pick_dates(dateList)) {
-                m_model_participants->setDays(index.row(), dateList);
+                m_model_participants->setDayList(index.row(), dateList);
             }
         }
         break;
@@ -100,7 +96,6 @@ void DialogNewWork::_init_candidate_list()
 void DialogNewWork::_init_participant_list()
 {
     ui->tableView_workParticipants->setModel(m_model_participants);
-    m_model_participants->clearItems();
 }
 
 void DialogNewWork::_init_company_list()
