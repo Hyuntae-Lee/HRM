@@ -24,12 +24,15 @@ public:
     void setCompanyId(int value);
     QList<WorkerInfo> workerInfoList();
     void setWorkerInfoList(QList<WorkerInfo> value);
+    QString name();
+    void setName(QString value);
     bool isWorkerIn(int worker_id);
 
 private:
     int m_idNum;
     int m_companyId;
     QList<WorkerInfo> m_workerInfoList;
+    QString m_name;
 };
 
 #endif // WORK_H

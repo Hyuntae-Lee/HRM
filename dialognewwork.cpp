@@ -33,6 +33,10 @@ bool DialogNewWork::getWork(Work* out_work)
         return false;
     }
 
+    // name
+    QString name = ui->lineEdit_name->text();
+    out_work->setName(name);
+
     // company id
     int companyId = ui->comboBox_workCompany->currentData().toInt();
     out_work->setCompanyId(companyId);

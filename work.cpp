@@ -36,6 +36,16 @@ void Work::setWorkerInfoList(QList<WorkerInfo> value)
     m_workerInfoList.append(value);
 }
 
+QString Work::name()
+{
+    return m_name;
+}
+
+void Work::setName(QString value)
+{
+    m_name = value;
+}
+
 bool Work::isWorkerIn(int worker_id)
 {
     foreach(WorkerInfo workerInfo, m_workerInfoList) {
