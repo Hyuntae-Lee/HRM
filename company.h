@@ -14,7 +14,7 @@ public:
     QString name();
     void setName(QString value);
     QString blNum();
-    int setBlNum(QString value);
+    void setBlNum(QString value);
     QString address();
     void setAddress(QString value);
     QString owner();

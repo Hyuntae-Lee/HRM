@@ -30,7 +30,7 @@ QString Company::blNum()
     return m_blNum;
 }
 
-int Company::setBlNum(QString value)
+void Company::setBlNum(QString value)
 {
     m_blNum = value;
 }
@@ -82,5 +82,5 @@ bool Company::operator ==(Company &w) const
 
 QString Company::labelStr()
 {
-     return QString("%1(%2)").arg(name()).arg(idNum());
+     return QString("%1").arg(name());
 }

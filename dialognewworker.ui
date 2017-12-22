@@ -196,6 +196,15 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_name</tabstop>
+  <tabstop>lineEdit_workerRrNum</tabstop>
+  <tabstop>lineEdit_major</tabstop>
+  <tabstop>lineEdit_phoneNum</tabstop>
+  <tabstop>lineEdit_address</tabstop>
+  <tabstop>lineEdit_bankAccount</tabstop>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -5,6 +5,16 @@ WorkHistoryTableModelForWorkerItem::WorkHistoryTableModelForWorkerItem()
 
 }
 
+QString WorkHistoryTableModelForWorkerItem::workName()
+{
+    return m_workName;
+}
+
+void WorkHistoryTableModelForWorkerItem::setWorkName(QString value)
+{
+    m_workName = value;
+}
+
 int WorkHistoryTableModelForWorkerItem::workerPay()
 {
     return m_workerPay;

@@ -46,8 +46,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_connectDB_clicked()
 {
     // 임시.. 개발 중
-    //QString curPath = QDir::currentPath();
+#ifndef QT_DEBUG
+    QString curPath = QDir::currentPath();
+#else
     QString curPath = "D:/projects/etc/HRM/src";
+#endif // QT_DEBUG
 
     if (!m_dbHdlr->connectToDB(curPath + DB_FILE_PATH)) {
         QMessageBox::critical(this, tr("Error"), tr("Cannot connect to database!!"), tr("Ok"));
@@ -80,7 +83,8 @@ void MainWindow::on_pushButton_newHR_clicked()
         return;
     }
 
-    QMessageBox::information(this, tr("Confirm"), tr("A new worker is added."), tr("Ok"));
+    _load_worker_list(m_workerList);
+    _update_worker_list(m_workerList);
 }
 
 void MainWindow::on_listView_worker_clicked(const QModelIndex &index)
@@ -119,7 +123,8 @@ void MainWindow::on_pushButton_newCompany_clicked()
         return;
     }
 
-    QMessageBox::information(this, tr("Confirm"), tr("A new company is added."), tr("Ok"));
+    _load_company_list(m_companyList);
+    _update_company_list(m_companyList);
 }
 
 void MainWindow::on_listView_company_clicked(const QModelIndex &index)
@@ -127,14 +132,14 @@ void MainWindow::on_listView_company_clicked(const QModelIndex &index)
     Company company = m_companyList.at(index.row());
 
     QString name = company.name();
-    QString idStr = QString("%1").arg(company.idNum());
+    QString blNum = company.blNum();
     QString phoneNum = company.phoneNum();
     QString address = company.address();
     QString owner = company.owner();
     QString bankAccount = company.bankAccount();
 
     ui->label_companyName->setText(name);
-    ui->label_companyId->setText(idStr);
+    ui->label_companyBlNum->setText(blNum);
     ui->label_companyOwner->setText(owner);
     ui->label_companyAddress->setText(address);
     ui->label_companyPhoneNum->setText(phoneNum);
@@ -158,7 +163,8 @@ void MainWindow::on_pushButton_workNew_clicked()
         return;
     }
 
-    QMessageBox::information(this, tr("Confirm"), tr("A new work is added."), tr("Ok"));
+    _load_work_list(m_workList);
+    _update_work_list(m_workList);
 }
 
 void MainWindow::_update_worker_list(QList<Worker> listValue)
@@ -185,7 +191,7 @@ void MainWindow::_update_company_list(QList<Company> listValue)
 {
     QStringList strList;
     foreach (Company company, listValue) {
-        QString lableStr = QString("%1 (%2)").arg(company.name()).arg(company.idNum());
+        QString lableStr = QString("%1").arg(company.name());
         strList.append(lableStr);
     }
 

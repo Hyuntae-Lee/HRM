@@ -10,6 +10,8 @@ public:
     WorkHistoryTableModelForWorkerItem();
 
 public:
+    QString workName();
+    void setWorkName(QString value);
     int workerPay();
     void setWorkerPay(int value);
     QString companyBlNum();
@@ -21,6 +23,7 @@ public:
     QString dateListStr();
 
 private:
+    QString m_workName;
     int m_workerPay;
     QString m_companyBlNum;
     QString m_companyName;

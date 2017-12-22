@@ -137,7 +137,7 @@ bool DBHdlr::addCompany(Company company)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Company(business_license, name, owner, address, phone_num, bank_account) VALUES(%1,'%2','%3','%4','%5','%6')")
+    QString queryStr = QString("INSERT INTO Company(business_license, name, owner, address, phone_num, bank_account) VALUES('%1','%2','%3','%4','%5','%6')")
             .arg(company.blNum()).arg(company.name()).arg(company.owner())
             .arg(company.address()).arg(company.phoneNum()).arg(company.bankAccount());
 
@@ -217,7 +217,7 @@ bool DBHdlr::addWork(Work work)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Work(company_blNum, name, workers) VALUES(%1, '%2','%3')")
+    QString queryStr = QString("INSERT INTO Work(company_blNum, name, workers) VALUES('%1', '%2','%3')")
             .arg(work.companyBlNum()).arg(work.name()).arg(packWorkInfoStr(work));
 
     QSqlQuery query(queryStr);

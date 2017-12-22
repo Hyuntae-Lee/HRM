@@ -2,7 +2,8 @@
 #include <QMessageBox>
 
 typedef enum {
-    COLUMN_COMPANY = 0,
+    COLUMN_NAME = 0,
+    COLUMN_COMPANY,
     COLUMN_PAY,
     COLUMN_PAY_TOTAL,
     COLUMN_DATES,
@@ -16,6 +17,7 @@ typedef struct _WorkHistoryModelItem_t {
 
 static WorkHistoryModelItem_t s_model_item[] = {
     /*       idx      ,   label   */
+    { COLUMN_NAME     , "이름"     },
     { COLUMN_COMPANY  , "업체"     },
     { COLUMN_PAY      , "일당"     },
     { COLUMN_PAY_TOTAL, "총수당"   },
@@ -44,6 +46,7 @@ void WorkHistoryTableModelForWorker::setWorker(QString rrNum)
     foreach (Work work, workList) {
         WorkHistoryTableModelForWorkerItem modelItem;
 
+        QString workName = work.name();
         QString company_blNum = work.companyBlNum();
         QString company_name = companyName(company_blNum);
         int pay = payForWorkerInWork(work, rrNum);
@@ -52,6 +55,7 @@ void WorkHistoryTableModelForWorker::setWorker(QString rrNum)
             QMessageBox::critical(NULL, tr("오류"), tr("일한 일 수를 찾을 수 없습니다.!!"), tr("확인"));
         }
 
+        modelItem.setWorkName(workName);
         modelItem.setCompanyBlNum(company_blNum);
         modelItem.setCompanyName(company_name);
         modelItem.setWorkerPay(pay);
@@ -106,6 +110,10 @@ QVariant WorkHistoryTableModelForWorker::data(const QModelIndex &index, int role
 
     if (role == Qt::DisplayRole) {
         WorkHistoryTableModelForWorkerItem item = m_itemList[index.row()];
+
+        if (index.column() == COLUMN_NAME) {
+            return item.workName();
+        }
 
         if (index.column() == COLUMN_COMPANY) {
             return item.companyName();
