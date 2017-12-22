@@ -25,7 +25,9 @@ SOURCES += main.cpp\
     participanttablemodel.cpp \
     participanttablemodelitem.cpp \
     workhistorytablemodel.cpp \
-    workhistorytablemodelitem.cpp
+    workhistorytablemodelitem.cpp \
+    workhistorytablemodelforcompanyitem.cpp \
+    workhistorytablemodelforcompany.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
@@ -39,7 +41,9 @@ HEADERS  += mainwindow.h \
     participanttablemodel.h \
     participanttablemodelitem.h \
     workhistorytablemodel.h \
-    workhistorytablemodelitem.h
+    workhistorytablemodelitem.h \
+    workhistorytablemodelforcompanyitem.h \
+    workhistorytablemodelforcompany.h
 
 FORMS    += mainwindow.ui \
     dialognewworker.ui \

@@ -4,6 +4,11 @@
 #include <QSqlQuery>
 #include <QDebug>
 
+const QString DB_DATE_FORMAT = "yyyyMMdd";
+const QString DB_SEP_WORKINFO = ",";
+const QString DB_SEP_WORKINFO_PROP = ";";
+const QString DB_SEP_WORKINFO_DATE = "-";
+
 const QString DRIVER("QSQLITE");
 
 DBHdlr::DBHdlr(QObject *parent) : QObject(parent)
@@ -165,17 +170,17 @@ bool DBHdlr::getWorkList(QList<Work>& list)
         // workers
         QList<WorkerInfo> workerInfoList;
         QString workerInfoStrTotal = query.value("workers").toString();
-        QStringList workerInfoStrTotalList = workerInfoStrTotal.split(",");
+        QStringList workerInfoStrTotalList = workerInfoStrTotal.split(DB_SEP_WORKINFO);
         foreach (QString workerInfoStrRaw, workerInfoStrTotalList) {
-            QStringList workerInfoStr = workerInfoStrRaw.split(";");
+            QStringList workerInfoStr = workerInfoStrRaw.split(DB_SEP_WORKINFO_PROP);
 
             int workerId = workerInfoStr[0].toInt();
             int workerPay = workerInfoStr[1].toInt();
 
-            QStringList workerInfoDateStrList = workerInfoStr[2].split("-");
+            QStringList workerInfoDateStrList = workerInfoStr[2].split(DB_SEP_WORKINFO_DATE);
             QList<QDate> workerDateList;
             foreach (QString dateStr, workerInfoDateStrList) {
-                QDate date = QDate::fromString(dateStr, "yyMMdd");
+                QDate date = QDate::fromString(dateStr, DB_DATE_FORMAT);
                 workerDateList.append(date);
             }
 
@@ -230,12 +235,12 @@ QString DBHdlr::packWorkInfoStr(Work& work)
         // - days
         QStringList strDateList;
         foreach(QDate workingDate, workInfo.dayList) {
-            strDateList.append(workingDate.toString("yyyyMMdd"));
+            strDateList.append(workingDate.toString(DB_DATE_FORMAT));
         }
-        strWorker.append(strDateList.join("-"));
+        strWorker.append(strDateList.join(DB_SEP_WORKINFO_DATE));
 
-        strList.append(strWorker.join(";"));
+        strList.append(strWorker.join(DB_SEP_WORKINFO_PROP));
     }
 
-    return strList.join(",");
+    return strList.join(DB_SEP_WORKINFO);
 }

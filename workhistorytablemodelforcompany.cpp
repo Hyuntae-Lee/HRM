@@ -1,5 +1,4 @@
-#include "workhistorytablemodel.h"
-#include <QMessageBox>
+#include "workhistorytablemodelforcompany.h"
 
 typedef enum {
     WORKHISTORY_COLUMN_COMPANY = 0,
@@ -22,38 +21,37 @@ static WorkHistoryModelItem_t s_model_item[] = {
     { WORKHISTORY_COLUMN_DATES    , "일정"     },
 };
 
-WorkHistoryTableModel::WorkHistoryTableModel(QList<Work>& workList, QList<Worker>& workerList, QList<Company>& companyList)
+WorkHistoryTableModelForCompany::WorkHistoryTableModelForCompany(QList<Work> &workList, QList<Worker> &workerList, QList<Company> &companyList)
     : m_workList(workList), m_workerList(workerList), m_companyList(companyList)
 {
 }
 
-void WorkHistoryTableModel::clearItems()
+void WorkHistoryTableModelForCompany::clearItems()
 {
     m_itemList.clear();
 }
 
-void WorkHistoryTableModel::setWorker(int worker_id)
+void WorkHistoryTableModelForCompany::setCompany(int compay_id)
 {
     clearItems();
 
     QList<Work> workList;
-    if (!workListForWorker(workList, worker_id)) {
+    if (!workListForCompany(workList, compay_id)) {
         return;
     }
 
     foreach (Work work, workList) {
-        WorkHistoryTableModelItem modelItem;
+        WorkHistoryTableModelForCompanyItem modelItem;
 
         int company_id = work.companyId();
-        QString company_name = companyName(company_id);
-        int pay = payForWorkerInWork(work, worker_id);
+        int pay = 0;//payForWorkerInWork(work, worker_id);
         QList<QDate> dateList;
-        if (!workDayListForWorker(dateList, work, worker_id)) {
-            QMessageBox::critical(NULL, tr("오류"), tr("일한 일 수를 찾을 수 없습니다.!!"), tr("확인"));
-        }
+//        if (!workDayListForWorker(dateList, work, worker_id)) {
+//            QMessageBox::critical(NULL, tr("오류"), tr("일한 일 수를 찾을 수 없습니다.!!"), tr("확인"));
+//        }
 
         modelItem.setCompanyId(company_id);
-        modelItem.setCompanyName(company_name);
+        modelItem.setCompanyName("company_name");
         modelItem.setWorkerPay(pay);
         modelItem.setWorkDayList(dateList);
 
@@ -63,7 +61,8 @@ void WorkHistoryTableModel::setWorker(int worker_id)
     emit layoutChanged();
 }
 
-QVariant WorkHistoryTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+
+QVariant WorkHistoryTableModelForCompany::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -84,17 +83,17 @@ QVariant WorkHistoryTableModel::headerData(int section, Qt::Orientation orientat
     }
 }
 
-int WorkHistoryTableModel::rowCount(const QModelIndex &) const
+int WorkHistoryTableModelForCompany::rowCount(const QModelIndex &) const
 {
     return m_itemList.count();
 }
 
-int WorkHistoryTableModel::columnCount(const QModelIndex &) const
+int WorkHistoryTableModelForCompany::columnCount(const QModelIndex &) const
 {
     return WORKHISTORY_COLUMN_NUM;
 }
 
-QVariant WorkHistoryTableModel::data(const QModelIndex &index, int role) const
+QVariant WorkHistoryTableModelForCompany::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
@@ -105,7 +104,7 @@ QVariant WorkHistoryTableModel::data(const QModelIndex &index, int role) const
     }
 
     if (role == Qt::DisplayRole) {
-        WorkHistoryTableModelItem item = m_itemList[index.row()];
+        WorkHistoryTableModelForCompanyItem item = m_itemList[index.row()];
 
         if (index.column() == WORKHISTORY_COLUMN_COMPANY) {
             return item.companyName();
@@ -127,14 +126,14 @@ QVariant WorkHistoryTableModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool WorkHistoryTableModel::workListForWorker(QList<Work>& out_list, int worker_id)
+bool WorkHistoryTableModelForCompany::workListForCompany(QList<Work>& out_list, int company_id)
 {
     if (m_workList.count() <= 0) {
         return false;
     }
 
     foreach (Work work, m_workList) {
-        if (!work.isWorkerIn(worker_id)) {
+        if (work.companyId() != company_id) {
             continue;
         }
 
@@ -144,7 +143,7 @@ bool WorkHistoryTableModel::workListForWorker(QList<Work>& out_list, int worker_
     return true;
 }
 
-int WorkHistoryTableModel::payForWorkerInWork(Work& work, int worker_id)
+int WorkHistoryTableModelForCompany::payForWorkerInWork(Work& work, int worker_id)
 {
     foreach (WorkerInfo workerInfo, work.workerInfoList()) {
         if (workerInfo.worker_id != worker_id) {
@@ -157,20 +156,7 @@ int WorkHistoryTableModel::payForWorkerInWork(Work& work, int worker_id)
     return -1;
 }
 
-QString WorkHistoryTableModel::companyName(int company_id)
-{
-    foreach (Company company, m_companyList) {
-        if (company.idNum() != company_id) {
-            continue;
-        }
-
-        return company.name();
-    }
-
-    return "";
-}
-
-bool WorkHistoryTableModel::workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id)
+bool WorkHistoryTableModelForCompany::workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id)
 {
     foreach (WorkerInfo workerInfo, work.workerInfoList()) {
         if (workerInfo.worker_id != worker_id) {
