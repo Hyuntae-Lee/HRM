@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>HR</string>
+    <string>인력</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -52,7 +52,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Company</string>
+    <string>업체</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox_workCompany">
@@ -127,7 +127,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Name</string>
+    <string>이름</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_name">
