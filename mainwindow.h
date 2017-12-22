@@ -12,7 +12,7 @@ class MainWindow;
 
 class DBHdlr;
 class QStringListModel;
-class WorkHistoryTableModel;
+class WorkHistoryTableModelForWorker;
 class WorkHistoryTableModelForCompany;
 class MainWindow : public QMainWindow
 {
@@ -49,7 +49,7 @@ private:
     QStringListModel* m_model_worker;
     QStringListModel* m_model_company;
     QStringListModel* m_model_work;
-    WorkHistoryTableModel* m_model_workHistoryForWorker;
+    WorkHistoryTableModelForWorker* m_model_workHistoryForWorker;
     WorkHistoryTableModelForCompany* m_model_workHistoryForCompany;
     QList<Worker> m_workerList;
     QList<Company> m_companyList;

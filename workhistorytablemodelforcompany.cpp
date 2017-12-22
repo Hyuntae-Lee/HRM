@@ -1,11 +1,11 @@
 #include "workhistorytablemodelforcompany.h"
 
 typedef enum {
-    WORKHISTORY_COLUMN_COMPANY = 0,
-    WORKHISTORY_COLUMN_PAY,
-    WORKHISTORY_COLUMN_PAY_TOTAL,
-    WORKHISTORY_COLUMN_DATES,
-    WORKHISTORY_COLUMN_NUM
+    COLUMN_COMPANY = 0,
+    COLUMN_PAY,
+    COLUMN_PAY_TOTAL,
+    COLUMN_DATES,
+    COLUMN_NUM
 } WorkHistoryModelItemColumnIdx;
 
 typedef struct _WorkHistoryModelItem_t {
@@ -14,11 +14,11 @@ typedef struct _WorkHistoryModelItem_t {
 } WorkHistoryModelItem_t;
 
 static WorkHistoryModelItem_t s_model_item[] = {
-    /*             idx            ,   label   */
-    { WORKHISTORY_COLUMN_COMPANY  , "업체"     },
-    { WORKHISTORY_COLUMN_PAY      , "일당"     },
-    { WORKHISTORY_COLUMN_PAY_TOTAL, "총수당"   },
-    { WORKHISTORY_COLUMN_DATES    , "일정"     },
+    /*      idx       ,   label   */
+    { COLUMN_COMPANY  , "업체"     },
+    { COLUMN_PAY      , "일당"     },
+    { COLUMN_PAY_TOTAL, "총수당"   },
+    { COLUMN_DATES    , "일정"     },
 };
 
 WorkHistoryTableModelForCompany::WorkHistoryTableModelForCompany(QList<Work> &workList, QList<Worker> &workerList, QList<Company> &companyList)
@@ -69,7 +69,7 @@ QVariant WorkHistoryTableModelForCompany::headerData(int section, Qt::Orientatio
     }
 
     if (orientation == Qt::Horizontal) {
-        if (section >= WORKHISTORY_COLUMN_NUM) {
+        if (section >= COLUMN_NUM) {
             return QVariant();
         }
 
@@ -90,7 +90,7 @@ int WorkHistoryTableModelForCompany::rowCount(const QModelIndex &) const
 
 int WorkHistoryTableModelForCompany::columnCount(const QModelIndex &) const
 {
-    return WORKHISTORY_COLUMN_NUM;
+    return COLUMN_NUM;
 }
 
 QVariant WorkHistoryTableModelForCompany::data(const QModelIndex &index, int role) const
@@ -106,19 +106,19 @@ QVariant WorkHistoryTableModelForCompany::data(const QModelIndex &index, int rol
     if (role == Qt::DisplayRole) {
         WorkHistoryTableModelForCompanyItem item = m_itemList[index.row()];
 
-        if (index.column() == WORKHISTORY_COLUMN_COMPANY) {
+        if (index.column() == COLUMN_COMPANY) {
             return item.companyName();
         }
 
-        if (index.column() == WORKHISTORY_COLUMN_DATES) {
+        if (index.column() == COLUMN_DATES) {
             return item.dateListStr();
         }
 
-        if (index.column() == WORKHISTORY_COLUMN_PAY) {
+        if (index.column() == COLUMN_PAY) {
             return QString("%1").arg(item.workerPay());
         }
 
-        if (index.column() == WORKHISTORY_COLUMN_PAY_TOTAL) {
+        if (index.column() == COLUMN_PAY_TOTAL) {
             return QString("%1").arg(item.workerPay() * item.workDayList().count());
         }
     }

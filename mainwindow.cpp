@@ -7,7 +7,7 @@
 #include "dialognewworker.h"
 #include "dialognewcompany.h"
 #include "dialognewwork.h"
-#include "workhistorytablemodel.h"
+#include "workhistorytablemodelforworker.h"
 #include "workhistorytablemodelforcompany.h"
 
 #define DB_FILE_PATH "/data/main.db"
@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_model_worker = new QStringListModel;
     m_model_company = new QStringListModel;
     m_model_work = new QStringListModel;
-    m_model_workHistoryForWorker = new WorkHistoryTableModel(m_workList, m_workerList, m_companyList);
+    m_model_workHistoryForWorker = new WorkHistoryTableModelForWorker(m_workList, m_workerList, m_companyList);
     m_model_workHistoryForCompany = new WorkHistoryTableModelForCompany(m_workList, m_workerList, m_companyList);
 
     ui->setupUi(this);

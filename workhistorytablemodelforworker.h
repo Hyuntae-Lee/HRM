@@ -1,18 +1,18 @@
-#ifndef WORKHISTORYTABLEMODEL_H
-#define WORKHISTORYTABLEMODEL_H
+#ifndef WORKHISTORYTABLEMODELFORWORKER_H
+#define WORKHISTORYTABLEMODELFORWORKER_H
 
 #include <QAbstractTableModel>
 #include "work.h"
 #include "worker.h"
 #include "company.h"
-#include "workhistorytablemodelitem.h"
+#include "workhistorytablemodelforworkeritem.h"
 
-class WorkHistoryTableModel : public QAbstractTableModel
+class WorkHistoryTableModelForWorker : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit WorkHistoryTableModel(QList<Work>& itemList, QList<Worker>& workerList, QList<Company>& companyList);
+    explicit WorkHistoryTableModelForWorker(QList<Work>& itemList, QList<Worker>& workerList, QList<Company>& companyList);
 
 public:
     void clearItems();
@@ -31,10 +31,10 @@ private:
     bool workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id);
 
 private:
-    QList<WorkHistoryTableModelItem> m_itemList;
+    QList<WorkHistoryTableModelForWorkerItem> m_itemList;
     QList<Work>& m_workList;
     QList<Worker>& m_workerList;
     QList<Company>& m_companyList;
 };
 
-#endif // WORKHISTORYTABLEMODEL_H
+#endif // WORKHISTORYTABLEMODELFORWORKER_H

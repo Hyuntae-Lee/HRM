@@ -1,13 +1,13 @@
-#ifndef WORKHISTORYTABLEMODELITEM_H
-#define WORKHISTORYTABLEMODELITEM_H
+#ifndef WORKHISTORYTABLEMODELFORWORKERITEM_H
+#define WORKHISTORYTABLEMODELFORWORKERITEM_H
 
 #include <QList>
 #include <QDate>
 
-class WorkHistoryTableModelItem
+class WorkHistoryTableModelForWorkerItem
 {
 public:
-    WorkHistoryTableModelItem();
+    WorkHistoryTableModelForWorkerItem();
 
 public:
     int workerPay();
@@ -27,4 +27,4 @@ private:
     QList<QDate> m_workDayList;
 };
 
-#endif // WORKHISTORYTABLEMODELITEM_H
+#endif // WORKHISTORYTABLEMODELFORWORKERITEM_H

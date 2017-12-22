@@ -24,10 +24,10 @@ SOURCES += main.cpp\
     dialogdatepicker.cpp \
     participanttablemodel.cpp \
     participanttablemodelitem.cpp \
-    workhistorytablemodel.cpp \
-    workhistorytablemodelitem.cpp \
     workhistorytablemodelforcompanyitem.cpp \
-    workhistorytablemodelforcompany.cpp
+    workhistorytablemodelforcompany.cpp \
+    workhistorytablemodelforworker.cpp \
+    workhistorytablemodelforworkeritem.cpp
 
 HEADERS  += mainwindow.h \
     dbhdlr.h \
@@ -40,10 +40,10 @@ HEADERS  += mainwindow.h \
     dialogdatepicker.h \
     participanttablemodel.h \
     participanttablemodelitem.h \
-    workhistorytablemodel.h \
-    workhistorytablemodelitem.h \
     workhistorytablemodelforcompanyitem.h \
-    workhistorytablemodelforcompany.h
+    workhistorytablemodelforcompany.h \
+    workhistorytablemodelforworker.h \
+    workhistorytablemodelforworkeritem.h
 
 FORMS    += mainwindow.ui \
     dialognewworker.ui \
