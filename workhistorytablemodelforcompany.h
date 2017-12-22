@@ -25,9 +25,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
-    bool workListForCompany(QList<Work>& out_list, int company_id);
-    int payForWorkerInWork(Work &work, int worker_id);
-    bool workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id);
+    bool workListForCompany(QList<Work>& out_list, QString blNum);
 
 private:
     QList<WorkHistoryTableModelForCompanyItem> m_itemList;

@@ -5,14 +5,14 @@ ParticipantTableModelItem::ParticipantTableModelItem()
 
 }
 
-int ParticipantTableModelItem::workerId()
+QString ParticipantTableModelItem::workerRrNum()
 {
-    return m_workerId;
+    return m_workerRrNum;
 }
 
-void ParticipantTableModelItem::setWorkerId(int value)
+void ParticipantTableModelItem::setWorkerRrNum(QString value)
 {
-    m_workerId = value;
+    m_workerRrNum = value;
 }
 
 QString ParticipantTableModelItem::workerName()
@@ -52,7 +52,7 @@ void ParticipantTableModelItem::setWorkDayList(QList<QDate> value)
 }
 
 QString ParticipantTableModelItem::labelStr() {
-    return QString("%1(%2)").arg(workerName()).arg(workerId());
+    return QString("%1(%2)").arg(workerName()).arg(workerRrNum());
 }
 
 QString ParticipantTableModelItem::daysStr() {

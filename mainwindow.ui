@@ -31,9 +31,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButton_newHR">
         <property name="text">
-         <string>button 1</string>
+         <string>사람추가</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_newCompany">
+        <property name="text">
+         <string>업체추가</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_workNew">
+        <property name="text">
+         <string>업무추가</string>
         </property>
        </widget>
       </item>
@@ -45,7 +59,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_worker">
        <attribute name="title">
@@ -55,22 +69,11 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <widget class="QPushButton" name="pushButton_newHR">
-              <property name="text">
-               <string>New</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_refreshHR">
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>목록</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QListView" name="listView_worker">
@@ -141,7 +144,7 @@
                 <string/>
                </property>
               </widget>
-              <widget class="QLabel" name="label_workerId">
+              <widget class="QLabel" name="label_workerRrNum">
                <property name="geometry">
                 <rect>
                  <x>180</x>
@@ -223,22 +226,11 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <widget class="QPushButton" name="pushButton_newCompany">
-              <property name="text">
-               <string>New</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_refreshCompany">
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>목록</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QListView" name="listView_company">
@@ -422,22 +414,11 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
-            <item>
-             <widget class="QPushButton" name="pushButton_workNew">
-              <property name="text">
-               <string>New</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_workRefresh">
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>목록</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QListView" name="listView_work">

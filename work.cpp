@@ -15,14 +15,14 @@ void Work::setIdNum(int value)
     m_idNum = value;
 }
 
-int Work::companyId()
+QString Work::companyBlNum()
 {
-    return m_companyId;
+    return m_companyBlNum;
 }
 
-void Work::setCompanyId(int value)
+void Work::setCompanyBlNum(QString value)
 {
-    m_companyId = value;
+    m_companyBlNum = value;
 }
 
 QList<WorkerInfo> Work::workerInfoList()
@@ -46,10 +46,10 @@ void Work::setName(QString value)
     m_name = value;
 }
 
-bool Work::isWorkerIn(int worker_id)
+bool Work::isWorkerIn(QString rrNum)
 {
     foreach(WorkerInfo workerInfo, m_workerInfoList) {
-        if (workerInfo.worker_id == worker_id) {
+        if (workerInfo.rrNum == rrNum) {
             return true;
         }
     }

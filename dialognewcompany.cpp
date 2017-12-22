@@ -21,13 +21,13 @@ bool DialogNewCompany::getCompanyInfo(Company* company)
     }
 
     QString name = ui->lineEdit_companyName->text();
-    QString idStr = ui->lineEdit_companyId->text();
+    QString blNum = ui->lineEdit_companyBlNum->text();
     QString address = ui->lineEdit_companyAddress->text();
     QString phoneNum = ui->lineEdit_companyPhoneNum->text();
     QString bankAccount = ui->lineEdit_companyAccount->text();
     QString owner = ui->lineEdit_companyOwner->text();
 
-    company->setIdNum(idStr.toInt());
+    company->setBlNum(blNum);
     company->setName(name);
     company->setAddress(address);
     company->setPhoneNum(phoneNum);

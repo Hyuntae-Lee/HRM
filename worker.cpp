@@ -5,6 +5,16 @@ Worker::Worker()
 
 }
 
+int Worker::idNum()
+{
+    return m_idNum;
+}
+
+void Worker::setIdNum(int value)
+{
+    m_idNum = value;
+}
+
 QString Worker::name()
 {
     return m_name;
@@ -15,14 +25,14 @@ void Worker::setName(QString value)
     m_name = value;
 }
 
-int Worker::idNum()
+QString Worker::rrNum()
 {
-    return m_idNum;
+    return m_rrNum;
 }
 
-void Worker::setIdNum(int value)
+void Worker::setRrNum(QString value)
 {
-    m_idNum = value;
+    m_rrNum = value;
 }
 
 QList<QString> Worker::majorList()

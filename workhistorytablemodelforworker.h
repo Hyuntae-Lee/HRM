@@ -16,7 +16,7 @@ public:
 
 public:
     void clearItems();
-    void setWorker(int worker_id);
+    void setWorker(QString rrNum);
 
 public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -25,10 +25,10 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
-    bool workListForWorker(QList<Work>& out_list, int worker_id);
-    int payForWorkerInWork(Work &work, int worker_id);
-    QString companyName(int company_id);
-    bool workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id);
+    bool workListForWorker(QList<Work>& out_list, QString rrNum);
+    int payForWorkerInWork(Work &work, QString rrNum);
+    QString companyName(QString blNum);
+    bool workDayListForWorker(QList<QDate>& out_list, Work& work, QString rrNum);
 
 private:
     QList<WorkHistoryTableModelForWorkerItem> m_itemList;

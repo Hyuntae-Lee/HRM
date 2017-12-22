@@ -21,13 +21,13 @@ bool DialogNewWorker::getWorkInfo(Worker* worker)
     }
 
     QString name = ui->lineEdit_name->text();
-    QString idStr = ui->lineEdit_id->text();
+    QString rrNum = ui->lineEdit_workerRrNum->text();
     QStringList majorListStr = ui->lineEdit_major->text().split(",");
     QString address = ui->lineEdit_address->text();
     QString phoneNum = ui->lineEdit_phoneNum->text();
     QString bankAccount = ui->lineEdit_bankAccount->text();
 
-    worker->setIdNum(idStr.toInt());
+    worker->setRrNum(rrNum);
     worker->setName(name);
     worker->setAddress(address);
     worker->setPhoneNum(phoneNum);

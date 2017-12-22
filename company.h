@@ -13,6 +13,8 @@ public:
     void setIdNum(int value);
     QString name();
     void setName(QString value);
+    QString blNum();
+    int setBlNum(QString value);
     QString address();
     void setAddress(QString value);
     QString owner();
@@ -27,6 +29,7 @@ public:
 private:
     int m_idNum;
     QString m_name;
+    QString m_blNum;
     QString m_address;
     QString m_owner;
     QString m_bankAccount;

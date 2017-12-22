@@ -33,32 +33,33 @@ void WorkHistoryTableModelForCompany::clearItems()
 
 void WorkHistoryTableModelForCompany::setCompany(int compay_id)
 {
-    clearItems();
+    // work at later
+//    clearItems();
 
-    QList<Work> workList;
-    if (!workListForCompany(workList, compay_id)) {
-        return;
-    }
+//    QList<Work> workList;
+//    if (!workListForCompany(workList, compay_id)) {
+//        return;
+//    }
 
-    foreach (Work work, workList) {
-        WorkHistoryTableModelForCompanyItem modelItem;
+//    foreach (Work work, workList) {
+//        WorkHistoryTableModelForCompanyItem modelItem;
 
-        int company_id = work.companyId();
-        int pay = 0;//payForWorkerInWork(work, worker_id);
-        QList<QDate> dateList;
-//        if (!workDayListForWorker(dateList, work, worker_id)) {
-//            QMessageBox::critical(NULL, tr("오류"), tr("일한 일 수를 찾을 수 없습니다.!!"), tr("확인"));
-//        }
+//        QString company_id = work.companyBlNum();
+//        int pay = 0;//payForWorkerInWork(work, worker_id);
+//        QList<QDate> dateList;
+////        if (!workDayListForWorker(dateList, work, worker_id)) {
+////            QMessageBox::critical(NULL, tr("오류"), tr("일한 일 수를 찾을 수 없습니다.!!"), tr("확인"));
+////        }
 
-        modelItem.setCompanyId(company_id);
-        modelItem.setCompanyName("company_name");
-        modelItem.setWorkerPay(pay);
-        modelItem.setWorkDayList(dateList);
+//        modelItem.setCompany(company_id);
+//        modelItem.setCompanyName("company_name");
+//        modelItem.setWorkerPay(pay);
+//        modelItem.setWorkDayList(dateList);
 
-        m_itemList.append(modelItem);
-    }
+//        m_itemList.append(modelItem);
+//    }
 
-    emit layoutChanged();
+//    emit layoutChanged();
 }
 
 
@@ -126,14 +127,14 @@ QVariant WorkHistoryTableModelForCompany::data(const QModelIndex &index, int rol
     return QVariant();
 }
 
-bool WorkHistoryTableModelForCompany::workListForCompany(QList<Work>& out_list, int company_id)
+bool WorkHistoryTableModelForCompany::workListForCompany(QList<Work>& out_list, QString blNum)
 {
     if (m_workList.count() <= 0) {
         return false;
     }
 
     foreach (Work work, m_workList) {
-        if (work.companyId() != company_id) {
+        if (work.companyBlNum() != blNum) {
             continue;
         }
 
@@ -141,33 +142,4 @@ bool WorkHistoryTableModelForCompany::workListForCompany(QList<Work>& out_list, 
     }
 
     return true;
-}
-
-int WorkHistoryTableModelForCompany::payForWorkerInWork(Work& work, int worker_id)
-{
-    foreach (WorkerInfo workerInfo, work.workerInfoList()) {
-        if (workerInfo.worker_id != worker_id) {
-            continue;
-        }
-
-        return workerInfo.payPerDay;
-    }
-
-    return -1;
-}
-
-bool WorkHistoryTableModelForCompany::workDayListForWorker(QList<QDate>& out_list, Work& work, int worker_id)
-{
-    foreach (WorkerInfo workerInfo, work.workerInfoList()) {
-        if (workerInfo.worker_id != worker_id) {
-            continue;
-        }
-
-        out_list.clear();
-        out_list.append(workerInfo.dayList);
-
-        return true;
-    }
-
-    return false;
 }

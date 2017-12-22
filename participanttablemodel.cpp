@@ -30,14 +30,14 @@ void ParticipantTableModel::clearItems()
     m_itemList.clear();
 }
 
-void ParticipantTableModel::addItem(int id, QString name, int pay)
+void ParticipantTableModel::addItem(QString rrNum, QString name, int pay)
 {
-    if (_worker_in_participants(id)) {
+    if (_worker_in_participants(rrNum)) {
         return;
     }
 
     ParticipantTableModelItem item;
-    item.setWorkerId(id);
+    item.setWorkerRrNum(rrNum);
     item.setWorkerName(name);
     item.setPayPerDay(pay);
 
@@ -46,9 +46,9 @@ void ParticipantTableModel::addItem(int id, QString name, int pay)
     emit layoutChanged();
 }
 
-int ParticipantTableModel::workerId(int index)
+QString ParticipantTableModel::workerRrNum(int index)
 {
-    return m_itemList[index].workerId();
+    return m_itemList[index].workerRrNum();
 }
 
 bool ParticipantTableModel::setPay(int index, int pay)
@@ -185,10 +185,10 @@ Qt::ItemFlags ParticipantTableModel::flags (const QModelIndex &index) const
     return Qt::NoItemFlags | Qt::ItemIsEditable;
 }
 
-bool ParticipantTableModel::_worker_in_participants(int worker_id)
+bool ParticipantTableModel::_worker_in_participants(QString rrNum)
 {
     foreach(ParticipantTableModelItem item, m_itemList) {
-        if (worker_id == item.workerId()) {
+        if (rrNum == item.workerRrNum()) {
             return true;
         }
     }

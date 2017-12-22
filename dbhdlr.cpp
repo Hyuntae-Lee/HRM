@@ -37,7 +37,7 @@ bool DBHdlr::getWorkerList(QList<Worker>& list)
         return false;
     }
 
-    QString queryStr = QString("SELECT id, name, major, picture_path, address, phone_num, bank_account FROM Worker");
+    QString queryStr = QString("SELECT id, name, rr_num, major, picture_path, address, phone_num, bank_account FROM Worker");
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -48,6 +48,7 @@ bool DBHdlr::getWorkerList(QList<Worker>& list)
     while (query.next()) {
         int id_num = query.value("id").toInt();
         QString name = query.value("name").toString();
+        QString rrNum = query.value("rr_num").toString();
         QString picturePath = query.value("picture_path").toString();
         QString address = query.value("address").toString();
         QString phoneNum = query.value("phone_num").toString();
@@ -57,6 +58,7 @@ bool DBHdlr::getWorkerList(QList<Worker>& list)
         Worker worker;
         worker.setIdNum(id_num);
         worker.setName(name);
+        worker.setRrNum(rrNum);
         worker.setPicturePath(picturePath);
         worker.setAddress(address);
         worker.setPhoneNum(phoneNum);
@@ -77,8 +79,8 @@ bool DBHdlr::addWorker(Worker worker)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Worker(id, name, major, picture_path, address, phone_num, bank_account) VALUES(%1,'%2','%3','%4','%5','%6','%7')")
-            .arg(worker.idNum()).arg(worker.name()).arg(worker.majorStr())
+    QString queryStr = QString("INSERT INTO Worker(rr_num, name, major, picture_path, address, phone_num, bank_account) VALUES('%1','%2','%3','%4','%5','%6','%7')")
+            .arg(worker.rrNum()).arg(worker.name()).arg(worker.majorStr())
             .arg(worker.picturePath()).arg(worker.address()).arg(worker.phoneNum())
             .arg(worker.bankAccount());
 
@@ -97,7 +99,7 @@ bool DBHdlr::getCompanyList(QList<Company>& list)
         return false;
     }
 
-    QString queryStr = QString("SELECT id, name, owner, address, phone_num, bank_account FROM Company");
+    QString queryStr = QString("SELECT id, business_license, name, owner, address, phone_num, bank_account FROM Company");
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -108,6 +110,7 @@ bool DBHdlr::getCompanyList(QList<Company>& list)
     while (query.next()) {
         int id_num = query.value("id").toInt();
         QString name = query.value("name").toString();
+        QString blNum = query.value("business_license").toString();
         QString address = query.value("address").toString();
         QString phoneNum = query.value("phone_num").toString();
         QString bankAccount = query.value("bank_account").toString();
@@ -116,6 +119,7 @@ bool DBHdlr::getCompanyList(QList<Company>& list)
         Company company;
         company.setIdNum(id_num);
         company.setName(name);
+        company.setBlNum(blNum);
         company.setAddress(address);
         company.setPhoneNum(phoneNum);
         company.setBankAccount(bankAccount);
@@ -133,8 +137,8 @@ bool DBHdlr::addCompany(Company company)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Company(id, name, owner, address, phone_num, bank_account) VALUES(%1,'%2','%3','%4','%5','%6')")
-            .arg(company.idNum()).arg(company.name()).arg(company.owner())
+    QString queryStr = QString("INSERT INTO Company(business_license, name, owner, address, phone_num, bank_account) VALUES(%1,'%2','%3','%4','%5','%6')")
+            .arg(company.blNum()).arg(company.name()).arg(company.owner())
             .arg(company.address()).arg(company.phoneNum()).arg(company.bankAccount());
 
     QSqlQuery query(queryStr);
@@ -152,7 +156,7 @@ bool DBHdlr::getWorkList(QList<Work>& list)
         return false;
     }
 
-    QString queryStr = QString("SELECT id, company_id, workers FROM Work");
+    QString queryStr = QString("SELECT id, company_blNum, workers, name FROM Work");
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -164,8 +168,11 @@ bool DBHdlr::getWorkList(QList<Work>& list)
         // id
         int id_num = query.value("id").toInt();
 
+        // name
+        QString name = query.value("name").toString();
+
         // company
-        QString companyId = query.value("company_id").toString();
+        QString companyBlNum = query.value("company_blNum").toString();
 
         // workers
         QList<WorkerInfo> workerInfoList;
@@ -174,7 +181,7 @@ bool DBHdlr::getWorkList(QList<Work>& list)
         foreach (QString workerInfoStrRaw, workerInfoStrTotalList) {
             QStringList workerInfoStr = workerInfoStrRaw.split(DB_SEP_WORKINFO_PROP);
 
-            int workerId = workerInfoStr[0].toInt();
+            QString workerRrNum = workerInfoStr[0];
             int workerPay = workerInfoStr[1].toInt();
 
             QStringList workerInfoDateStrList = workerInfoStr[2].split(DB_SEP_WORKINFO_DATE);
@@ -185,7 +192,7 @@ bool DBHdlr::getWorkList(QList<Work>& list)
             }
 
             WorkerInfo workerInfo;
-            workerInfo.worker_id = workerId;
+            workerInfo.rrNum = workerRrNum;
             workerInfo.payPerDay = workerPay;
             workerInfo.dayList.append(workerDateList);
 
@@ -194,7 +201,8 @@ bool DBHdlr::getWorkList(QList<Work>& list)
 
         Work work;
         work.setIdNum(id_num);
-        work.setCompanyId(companyId.toInt());
+        work.setName(name);
+        work.setCompanyBlNum(companyBlNum);
         work.setWorkerInfoList(workerInfoList);
 
         list.append(work);
@@ -209,8 +217,8 @@ bool DBHdlr::addWork(Work work)
         return false;
     }
 
-    QString queryStr = QString("INSERT INTO Work(company_id, name, workers) VALUES(%1, '%2','%3')")
-            .arg(work.companyId()).arg(work.name()).arg(packWorkInfoStr(work));
+    QString queryStr = QString("INSERT INTO Work(company_blNum, name, workers) VALUES(%1, '%2','%3')")
+            .arg(work.companyBlNum()).arg(work.name()).arg(packWorkInfoStr(work));
 
     QSqlQuery query(queryStr);
     if(!query.isActive()) {
@@ -228,8 +236,8 @@ QString DBHdlr::packWorkInfoStr(Work& work)
     QStringList strList;
     foreach(WorkerInfo workInfo, workerInfoList) {
         QStringList strWorker;
-        // - worker id
-        strWorker.append(QString("%1").arg(workInfo.worker_id));
+        // - rr number
+        strWorker.append(QString("%1").arg(workInfo.rrNum));
         // - pay
         strWorker.append(QString("%1").arg(workInfo.payPerDay));
         // - days

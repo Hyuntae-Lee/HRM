@@ -15,14 +15,14 @@ void WorkHistoryTableModelForCompanyItem::setWorkerPay(int value)
     m_workerPay = value;
 }
 
-int WorkHistoryTableModelForCompanyItem::companyId()
+QString WorkHistoryTableModelForCompanyItem::companyBlNum()
 {
-    return m_companyId;
+    return m_companyBlNum;
 }
 
-void WorkHistoryTableModelForCompanyItem::setCompanyId(int value)
+void WorkHistoryTableModelForCompanyItem::setCompanyBlNum(QString value)
 {
-    m_companyId = value;
+    m_companyBlNum = value;
 }
 
 QString WorkHistoryTableModelForCompanyItem::companyName()

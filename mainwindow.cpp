@@ -56,6 +56,11 @@ void MainWindow::on_pushButton_connectDB_clicked()
 
     _load_worker_list(m_workerList);
     _load_company_list(m_companyList);
+    _load_work_list(m_workList);
+
+    _update_worker_list(m_workerList);
+    _update_company_list(m_companyList);
+    _update_work_list(m_workList);
 }
 
 void MainWindow::on_pushButton_newHR_clicked()
@@ -78,29 +83,23 @@ void MainWindow::on_pushButton_newHR_clicked()
     QMessageBox::information(this, tr("Confirm"), tr("A new worker is added."), tr("Ok"));
 }
 
-void MainWindow::on_pushButton_refreshHR_clicked()
-{
-    _load_worker_list(m_workerList);
-    _update_worker_list(m_workerList);
-}
-
 void MainWindow::on_listView_worker_clicked(const QModelIndex &index)
 {
     Worker worker = m_workerList.at(index.row());
 
     QString name = worker.name();
-    QString idStr = QString("%1").arg(worker.idNum());
+    QString rrNum = worker.rrNum();
     QString phoneNum = worker.phoneNum();
     QString address = worker.address();
     QString majorStr = worker.majorStr();
 
     ui->label_workerName->setText(name);
-    ui->label_workerId->setText(idStr);
+    ui->label_workerRrNum->setText(rrNum);
     ui->label_workerPhoneNum->setText(phoneNum);
     ui->label_workerAddr->setText(address);
     ui->label_workerMajor->setText(majorStr);
 
-    m_model_workHistoryForWorker->setWorker(worker.idNum());
+    m_model_workHistoryForWorker->setWorker(worker.rrNum());
 }
 
 void MainWindow::on_pushButton_newCompany_clicked()
@@ -121,12 +120,6 @@ void MainWindow::on_pushButton_newCompany_clicked()
     }
 
     QMessageBox::information(this, tr("Confirm"), tr("A new company is added."), tr("Ok"));
-}
-
-void MainWindow::on_pushButton_refreshCompany_clicked()
-{
-    _load_company_list(m_companyList);
-    _update_company_list(m_companyList);
 }
 
 void MainWindow::on_listView_company_clicked(const QModelIndex &index)
@@ -168,17 +161,11 @@ void MainWindow::on_pushButton_workNew_clicked()
     QMessageBox::information(this, tr("Confirm"), tr("A new work is added."), tr("Ok"));
 }
 
-void MainWindow::on_pushButton_workRefresh_clicked()
-{
-    _load_work_list(m_workList);
-    _update_work_list(m_workList);
-}
-
 void MainWindow::_update_worker_list(QList<Worker> listValue)
 {
     QStringList strList;
     foreach (Worker worker, listValue) {
-        QString lableStr = QString("%1 (%2)").arg(worker.name()).arg(worker.idNum());
+        QString lableStr = QString("%1").arg(worker.name());
         strList.append(lableStr);
     }
 
@@ -218,15 +205,15 @@ void MainWindow::_update_work_list(QList<Work> listValue)
 {
     QStringList strList;
     foreach (Work work, listValue) {
-        QString companyInfoStr = _companyLabelStr(work.companyId());
+        QString companyInfoStr = _companyLabelStr(work.companyBlNum());
 
         QStringList workerInfoStrList;
         foreach (WorkerInfo workerInfo, work.workerInfoList()) {
-            QString labelWorkerInfo = _workerNameStr(workerInfo.worker_id);
+            QString labelWorkerInfo = _workerNameStr(workerInfo.rrNum);
             workerInfoStrList.append(labelWorkerInfo);
         }
 
-        QString workLabelStr = QString("%1\t%2").arg(companyInfoStr).arg(workerInfoStrList.join(", "));
+        QString workLabelStr = QString("%1(%2)").arg(work.name()).arg(companyInfoStr);
 
         strList.append(workLabelStr);
     }
@@ -243,10 +230,10 @@ void MainWindow::_load_work_list(QList<Work> &listValue)
     }
 }
 
-QString MainWindow::_companyLabelStr(int id)
+QString MainWindow::_companyLabelStr(QString blNum)
 {
     foreach (Company item, m_companyList) {
-        if (item.idNum() == id) {
+        if (item.blNum() == blNum) {
             return item.labelStr();
         }
     }
@@ -254,10 +241,10 @@ QString MainWindow::_companyLabelStr(int id)
     return "";
 }
 
-QString MainWindow::_workerNameStr(int id)
+QString MainWindow::_workerNameStr(QString rrNum)
 {
     foreach (Worker item, m_workerList) {
-        if (item.idNum() == id) {
+        if (item.rrNum() == rrNum) {
             return item.name();
         }
     }

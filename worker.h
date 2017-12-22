@@ -14,6 +14,8 @@ public:
     void setIdNum(int value);
     QString name();
     void setName(QString value);
+    QString rrNum();
+    void setRrNum(QString value);
     QList<QString> majorList();
     QString majorStr();
     void addMajor(QString value);
@@ -32,6 +34,7 @@ public:
 private:
     int m_idNum;
     QString m_name;
+    QString m_rrNum;
     QList<QString> m_majorList;
     QString m_picturePath;
     QString m_address;

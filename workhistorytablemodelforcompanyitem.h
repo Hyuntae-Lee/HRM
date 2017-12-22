@@ -12,8 +12,8 @@ public:
 public:
     int workerPay();
     void setWorkerPay(int value);
-    int companyId();
-    void setCompanyId(int value);
+    QString companyBlNum();
+    void setCompanyBlNum(QString value);
     QString companyName();
     void setCompanyName(QString value);
     QList<QDate> workDayList();
@@ -22,7 +22,7 @@ public:
 
 private:
     int m_workerPay;
-    int m_companyId;
+    QString m_companyBlNum;
     QString m_companyName;
     QList<QDate> m_workDayList;
 };

@@ -37,15 +37,15 @@ bool DialogNewWork::getWork(Work* out_work)
     QString name = ui->lineEdit_name->text();
     out_work->setName(name);
 
-    // company id
-    int companyId = ui->comboBox_workCompany->currentData().toInt();
-    out_work->setCompanyId(companyId);
+    // business license number
+    QString companyBlNum = ui->comboBox_workCompany->currentData().toString();
+    out_work->setCompanyBlNum(companyBlNum);
 
     // workers
     QList<WorkerInfo> workerInfoList;
     for (int i = 0; i < m_model_participants->rowCount(); i ++) {
         WorkerInfo workerInfo;
-        workerInfo.worker_id = m_model_participants->workerId(i);
+        workerInfo.rrNum = m_model_participants->workerRrNum(i);
         workerInfo.payPerDay = m_model_participants->pay(i);
         workerInfo.dayList.append(m_model_participants->dayList(i));
 
@@ -61,7 +61,7 @@ void DialogNewWork::on_pushButton_workAddParticipant_clicked()
     QModelIndexList modelIdxList = ui->listView_workCandidates->selectionModel()->selectedIndexes();
     foreach(QModelIndex modelIdx, modelIdxList) {
         Worker worker = m_candidateList[modelIdx.row()];
-        m_model_participants->addItem(worker.idNum(), worker.name(), 0);
+        m_model_participants->addItem(worker.rrNum(), worker.name(), 0);
     }
 }
 
@@ -89,7 +89,7 @@ void DialogNewWork::_init_candidate_list()
 {
     QStringList itemList;
     foreach(Worker candidate, m_candidateList) {
-        QString lableStr = QString("%1 (%2)").arg(candidate.name()).arg(candidate.idNum());
+        QString lableStr = QString("%1(%2)").arg(candidate.name()).arg(candidate.rrNum());
         itemList.append(lableStr);
     }
     m_model_candidates->setStringList(itemList);
@@ -105,7 +105,7 @@ void DialogNewWork::_init_participant_list()
 void DialogNewWork::_init_company_list()
 {
     foreach(Company company, m_companyList) {
-        ui->comboBox_workCompany->addItem(company.name(), company.idNum());
+        ui->comboBox_workCompany->addItem(company.name(), company.blNum());
     }
 }
 

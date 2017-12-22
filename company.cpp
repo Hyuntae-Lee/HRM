@@ -25,6 +25,16 @@ void Company::setName(QString value)
     m_name = value;
 }
 
+QString Company::blNum()
+{
+    return m_blNum;
+}
+
+int Company::setBlNum(QString value)
+{
+    m_blNum = value;
+}
+
 QString Company::address()
 {
     return m_address;

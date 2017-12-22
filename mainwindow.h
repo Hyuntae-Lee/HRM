@@ -25,13 +25,10 @@ public:
 private slots:
     void on_pushButton_connectDB_clicked();
     void on_pushButton_newHR_clicked();
-    void on_pushButton_refreshHR_clicked();
     void on_listView_worker_clicked(const QModelIndex &index);
     void on_pushButton_newCompany_clicked();
-    void on_pushButton_refreshCompany_clicked();
     void on_listView_company_clicked(const QModelIndex &index);
     void on_pushButton_workNew_clicked();
-    void on_pushButton_workRefresh_clicked();
 
 private:
     void _update_worker_list(QList<Worker> listValue);
@@ -40,8 +37,8 @@ private:
     void _load_company_list(QList<Company> &listValue);
     void _update_work_list(QList<Work> listValue);
     void _load_work_list(QList<Work> &listValue);
-    QString _companyLabelStr(int id);
-    QString _workerNameStr(int id);
+    QString _companyLabelStr(QString blNum);
+    QString _workerNameStr(QString rrNum);
 
 private:
     Ui::MainWindow *ui;

@@ -11,8 +11,8 @@ public:
     ParticipantTableModelItem();
 
 public:
-    int workerId();
-    void setWorkerId(int value);
+    QString workerRrNum();
+    void setWorkerRrNum(QString value);
     QString workerName();
     void setWorkerName(QString value);
     int payPerDay();
@@ -24,7 +24,7 @@ public:
     QString daysStr();
 
 private:
-    int m_workerId;
+    QString m_workerRrNum;
     QString m_workerName;
     int m_payPerDay;
     QList<QDate> m_workDateList;

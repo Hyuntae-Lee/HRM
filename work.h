@@ -7,7 +7,7 @@
 
 struct WorkerInfo
 {
-    int worker_id;
+    QString rrNum;
     QList<QDate> dayList;
     int payPerDay;
 };
@@ -20,17 +20,17 @@ public:
 public:
     int idNum();
     void setIdNum(int value);
-    int companyId();
-    void setCompanyId(int value);
+    QString companyBlNum();
+    void setCompanyBlNum(QString value);
     QList<WorkerInfo> workerInfoList();
     void setWorkerInfoList(QList<WorkerInfo> value);
     QString name();
     void setName(QString value);
-    bool isWorkerIn(int worker_id);
+    bool isWorkerIn(QString rrNum);
 
 private:
     int m_idNum;
-    int m_companyId;
+    QString m_companyBlNum;
     QList<WorkerInfo> m_workerInfoList;
     QString m_name;
 };

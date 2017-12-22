@@ -15,8 +15,8 @@ public:
 
 public:
     void clearItems();
-    void addItem(int id, QString name, int pay);
-    int workerId(int index);
+    void addItem(QString rrNum, QString name, int pay);
+    QString workerRrNum(int index);
     bool setPay(int index, int pay);
     int pay(int index);
     bool setDayList(int index, QList<QDate> list);
@@ -32,7 +32,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
-    bool _worker_in_participants(int worker_id);
+    bool _worker_in_participants(QString rrNum);
 
 private:
     QList<ParticipantTableModelItem> m_itemList;
